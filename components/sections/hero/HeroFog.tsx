@@ -1,49 +1,115 @@
-﻿export default function HeroFog() {
-  return (
-    <>
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="
-                        absolute
-                        -left-40
-                        bottom-0
-                        h-[420px]
-                        w-[900px]
-                        rounded-full
-                        bg-white/10
-                        blur-[120px]
-                        animate-fogOne
-                    "
-        />
+﻿"use client";
 
-        <div
-          className="
-                        absolute
-                        right-[-250px]
-                        top-24
-                        h-[320px]
-                        w-[700px]
-                        rounded-full
-                        bg-white/5
-                        blur-[120px]
-                        animate-fogTwo
-                    "
-        />
+import { motion } from "framer-motion";
 
-        <div
-          className="
-                        absolute
-                        left-1/3
-                        bottom-24
-                        h-[260px]
-                        w-[550px]
-                        rounded-full
-                        bg-white/5
-                        blur-[90px]
-                        animate-fogThree
-                    "
-        />
-      </div>
-    </>
-  );
+export default function HeroFog() {
+
+    return (
+
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+
+            <motion.div
+
+                animate={{
+
+                    x:[-180,180,-180],
+
+                    y:[0,-25,0],
+
+                    scale:[1,1.15,1]
+
+                }}
+
+                transition={{
+
+                    duration:55,
+
+                    repeat:Infinity,
+
+                    ease:"linear"
+
+                }}
+
+                className="absolute left-[-260px] bottom-[-80px] h-[700px] w-[1200px] rounded-full"
+
+                style={{
+
+                    background:"radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,.10) 40%, transparent 75%)",
+
+                    filter:"blur(110px)"
+
+                }}
+
+            />
+
+            <motion.div
+
+                animate={{
+
+                    x:[220,-220,220],
+
+                    y:[20,-15,20],
+
+                    scale:[1.1,1,1.1]
+
+                }}
+
+                transition={{
+
+                    duration:75,
+
+                    repeat:Infinity,
+
+                    ease:"linear"
+
+                }}
+
+                className="absolute right-[-420px] top-[5%] h-[760px] w-[1350px] rounded-full"
+
+                style={{
+
+                    background:"radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,.08) 45%, transparent 80%)",
+
+                    filter:"blur(130px)"
+
+                }}
+
+            />
+
+            <motion.div
+
+                animate={{
+
+                    x:[0,80,0],
+
+                    opacity:[.25,.45,.25]
+
+                }}
+
+                transition={{
+
+                    duration:24,
+
+                    repeat:Infinity,
+
+                    ease:"easeInOut"
+
+                }}
+
+                className="absolute left-1/3 top-1/3 h-[420px] w-[650px] rounded-full"
+
+                style={{
+
+                    background:"radial-gradient(circle, rgba(255,255,255,.14) 0%, transparent 70%)",
+
+                    filter:"blur(90px)"
+
+                }}
+
+            />
+
+        </div>
+
+    );
+
 }

@@ -1,4 +1,6 @@
 @import "../styles/theme.css";
+@import "../styles/alto-paramo.css";
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -327,4 +329,102 @@ body {
   100% {
     transform: translate(0, 0);
   }
+}
+/* =======================================================
+   COFFEE PARTICLES
+======================================================= */
+
+.coffee-bean{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+
+        135deg,
+
+        #2b180d,
+
+        #5a3722,
+
+        #2b180d
+
+    );
+
+    opacity:.12;
+
+    filter:blur(.3px);
+
+    animation:coffeeFloat linear infinite;
+
+}
+
+.coffee-bean::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:8%;
+
+    width:1px;
+
+    height:84%;
+
+    background:rgba(0,0,0,.45);
+
+    transform:translateX(-50%);
+
+    border-radius:999px;
+
+}
+
+@keyframes coffeeFloat{
+
+    0%{
+
+        transform:
+        translateY(30px)
+        rotate(0deg);
+
+    }
+
+    25%{
+
+        transform:
+        translateY(-15px)
+        translateX(8px)
+        rotate(45deg);
+
+    }
+
+    50%{
+
+        transform:
+        translateY(-40px)
+        translateX(-10px)
+        rotate(90deg);
+
+    }
+
+    75%{
+
+        transform:
+        translateY(-10px)
+        translateX(15px)
+        rotate(180deg);
+
+    }
+
+    100%{
+
+        transform:
+        translateY(30px)
+        rotate(360deg);
+
+    }
+
 }

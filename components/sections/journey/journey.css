@@ -1,0 +1,29 @@
+section{
+
+    position:relative;
+
+}
+
+.journey-transition{
+
+    transition:
+
+        opacity .8s ease,
+
+        transform 1.2s ease;
+
+}
+
+.journey-image{
+
+    transform:scale(1.08);
+
+    transition:transform 8s ease;
+
+}
+
+.journey-image:hover{
+
+    transform:scale(1.12);
+
+}

@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "doctor": "node scripts/doctor.mjs",
+    "optimize": "node scripts/optimize.mjs",
+    "verify": "node scripts/verify.mjs",
+    "clean": "node scripts/clean.mjs",
+    "report": "node scripts/report.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
