@@ -7,32 +7,24 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function StickyEngine(){
+export default function StickyEngine() {
+  useEffect(() => {
+    const sections = gsap.utils.toArray<HTMLElement>(".sticky-section");
 
-    useEffect(()=>{
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
 
-        const sections=gsap.utils.toArray<HTMLElement>(".sticky-section");
+        start: "top top",
 
-        sections.forEach((section)=>{
+        end: "bottom top",
 
-            ScrollTrigger.create({
+        pin: section.querySelector(".sticky-content"),
 
-                trigger:section,
+        pinSpacing: false,
+      });
+    });
+  }, []);
 
-                start:"top top",
-
-                end:"bottom top",
-
-                pin:section.querySelector(".sticky-content"),
-
-                pinSpacing:false
-
-            });
-
-        });
-
-    },[]);
-
-    return null;
-
+  return null;
 }

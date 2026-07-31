@@ -8,24 +8,18 @@ import ParallaxEngine from "./parallax/ParallaxEngine";
 import ScrollReveal from "./scroll/ScrollReveal";
 import StickyEngine from "./sticky/StickyEngine";
 
-export default function Experience(){
+export default function Experience() {
+  return (
+    <ExperienceProvider>
+      <AmbientEngine />
 
-    return(
+      <ScrollReveal />
 
-        <ExperienceProvider>
+      <ParallaxEngine />
 
-            <AmbientEngine/>
+      <StickyEngine />
 
-            <ScrollReveal/>
-
-            <ParallaxEngine/>
-
-            <StickyEngine/>
-
-            <CatGuide/>
-
-        </ExperienceProvider>
-
-    );
-
+      <CatGuide />
+    </ExperienceProvider>
+  );
 }

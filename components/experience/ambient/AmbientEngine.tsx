@@ -1,17 +1,13 @@
 ﻿"use client";
 
-export default function AmbientEngine(){
+export default function AmbientEngine() {
+  return (
+    <>
+      <div className="ambient-light" />
 
-    return(
+      <div className="ambient-gradient" />
 
-        <>
-            <div className="ambient-light"/>
-
-            <div className="ambient-gradient"/>
-
-            <div className="ambient-noise"/>
-        </>
-
-    );
-
+      <div className="ambient-noise" />
+    </>
+  );
 }

@@ -5,26 +5,21 @@ import { useEffect, useState } from "react";
 import { site } from "@/config/site";
 
 export default function Header() {
-    const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
 
-        const onScroll = () => {
+    window.addEventListener("scroll", onScroll);
 
-            setScrolled(window.scrollY > 60);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-        };
-
-        window.addEventListener("scroll", onScroll);
-
-        return () => window.removeEventListener("scroll", onScroll);
-
-    }, []);
-
-    return (
-
-        <header
-            className={`
+  return (
+    <header
+      className={`
                 fixed
                 top-0
                 left-0
@@ -35,15 +30,14 @@ export default function Header() {
                 ease-out
 
                 ${
-                    scrolled
-                        ? "bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
-                        : "bg-transparent"
+                  scrolled
+                    ? "bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
+                    : "bg-transparent"
                 }
             `}
-        >
-
-            <div
-                className={`
+    >
+      <div
+        className={`
                     mx-auto
                     flex
                     max-w-7xl
@@ -53,17 +47,12 @@ export default function Header() {
                     transition-all
                     duration-700
 
-                    ${
-                        scrolled
-                            ? "h-16"
-                            : "h-24"
-                    }
+                    ${scrolled ? "h-16" : "h-24"}
                 `}
-            >
-
-                <Link
-                    href="/"
-                    className={`
+      >
+        <Link
+          href="/"
+          className={`
                         font-black
                         tracking-[0.18em]
                         uppercase
@@ -71,26 +60,18 @@ export default function Header() {
                         transition-all
                         duration-700
 
-                        ${
-                            scrolled
-                                ? "text-2xl"
-                                : "text-4xl"
-                        }
+                        ${scrolled ? "text-2xl" : "text-4xl"}
                     `}
-                >
+        >
+          {site.name}
+        </Link>
 
-                    {site.name}
-
-                </Link>
-
-                <nav className="hidden items-center gap-10 md:flex">
-
-                    {site.navigation.map((item) => (
-
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className="
+        <nav className="hidden items-center gap-10 md:flex">
+          {site.navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="
                                 relative
                                 uppercase
                                 tracking-[0.28em]
@@ -109,20 +90,12 @@ export default function Header() {
                                 after:duration-300
                                 hover:after:w-full
                             "
-                        >
-
-                            {item.label}
-
-                        </Link>
-
-                    ))}
-
-                </nav>
-
-            </div>
-
-        </header>
-
-    );
-
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
 }

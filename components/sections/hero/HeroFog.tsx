@@ -1,13 +1,9 @@
 ﻿export default function HeroFog() {
-
-    return (
-
-        <>
-
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
-                <div
-                    className="
+  return (
+    <>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="
                         absolute
                         -left-40
                         bottom-0
@@ -18,10 +14,10 @@
                         blur-[120px]
                         animate-fogOne
                     "
-                />
+        />
 
-                <div
-                    className="
+        <div
+          className="
                         absolute
                         right-[-250px]
                         top-24
@@ -32,10 +28,10 @@
                         blur-[120px]
                         animate-fogTwo
                     "
-                />
+        />
 
-                <div
-                    className="
+        <div
+          className="
                         absolute
                         left-1/3
                         bottom-24
@@ -46,12 +42,8 @@
                         blur-[90px]
                         animate-fogThree
                     "
-                />
-
-            </div>
-
-        </>
-
-    );
-
+        />
+      </div>
+    </>
+  );
 }

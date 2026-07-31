@@ -1,9 +1,7 @@
 ﻿export default function HeroLight() {
-
-    return (
-
-        <div
-            className="
+  return (
+    <div
+      className="
                 hero-glow
                 absolute
                 top-0
@@ -16,8 +14,6 @@
                 blur-[180px]
                 pointer-events-none
             "
-        />
-
-    );
-
+    />
+  );
 }

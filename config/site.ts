@@ -9,6 +9,6 @@
     { label: "Café", href: "/cafe" },
     { label: "Productores", href: "/productores" },
     { label: "Academia", href: "/academia" },
-    { label: "Contacto", href: "/contacto" }
-  ]
+    { label: "Contacto", href: "/contacto" },
+  ],
 };

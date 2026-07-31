@@ -1,29 +1,22 @@
 ﻿type Props = {
-    number:string;
-    title:string;
-    text:string;
+  number: string;
+  title: string;
+  text: string;
 };
 
-export default function JourneyCard({
-    number,
-    title,
-    text
-}:Props){
-
-    return(
-
-        <section
-            className="
+export default function JourneyCard({ number, title, text }: Props) {
+  return (
+    <section
+      className="
                 min-h-screen
                 flex
                 items-center
                 border-b
                 border-white/10
             "
-        >
-
-            <div
-                className="
+    >
+      <div
+        className="
                     mx-auto
                     max-w-7xl
                     w-full
@@ -33,51 +26,42 @@ export default function JourneyCard({
                     gap-20
                     items-center
                 "
-            >
-
-                <div>
-
-                    <span
-                        className="
+      >
+        <div>
+          <span
+            className="
                             text-[#C7A96B]
                             text-7xl
                             font-black
                         "
-                    >
-                        {number}
-                    </span>
+          >
+            {number}
+          </span>
+        </div>
 
-                </div>
-
-                <div>
-
-                    <h2
-                        className="
+        <div>
+          <h2
+            className="
                             text-6xl
                             font-black
                             text-white
                         "
-                    >
-                        {title}
-                    </h2>
+          >
+            {title}
+          </h2>
 
-                    <p
-                        className="
+          <p
+            className="
                             mt-8
                             text-xl
                             leading-10
                             text-white/70
                         "
-                    >
-                        {text}
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    );
-
+          >
+            {text}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -1,9 +1,7 @@
 ﻿export default function RegionalButton() {
-
-    return (
-
-        <button
-            className="
+  return (
+    <button
+      className="
                 mt-10
                 rounded-full
                 border
@@ -16,12 +14,8 @@
                 hover:bg-white
                 hover:text-black
             "
-        >
-
-            Descubrir Regional
-
-        </button>
-
-    );
-
+    >
+      Descubrir Regional
+    </button>
+  );
 }

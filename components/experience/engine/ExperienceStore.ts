@@ -1,60 +1,48 @@
 import { create } from "zustand";
 
 export interface MousePosition {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 }
 
-export type CatState =
-    | "hidden"
-    | "idle"
-    | "walk"
-    | "sit"
-    | "sleep"
-    | "look";
+export type CatState = "hidden" | "idle" | "walk" | "sit" | "sleep" | "look";
 
 interface ExperienceStore {
+  mouse: MousePosition;
 
-    mouse: MousePosition;
+  catState: CatState;
 
-    catState: CatState;
+  hoverElement: HTMLElement | null;
 
-    hoverElement: HTMLElement | null;
+  setMouse: (mouse: MousePosition) => void;
 
-    setMouse: (mouse: MousePosition) => void;
+  setCatState: (state: CatState) => void;
 
-    setCatState: (state: CatState) => void;
-
-    setHoverElement: (
-        element: HTMLElement | null
-    ) => void;
+  setHoverElement: (element: HTMLElement | null) => void;
 }
 
-export const useExperienceStore =
-    create<ExperienceStore>((set) => ({
+export const useExperienceStore = create<ExperienceStore>((set) => ({
+  mouse: {
+    x: 0,
+    y: 0,
+  },
 
-        mouse: {
-            x: 0,
-            y: 0,
-        },
+  catState: "idle",
 
-        catState: "idle",
+  hoverElement: null,
 
-        hoverElement: null,
+  setMouse: (mouse) =>
+    set({
+      mouse,
+    }),
 
-        setMouse: (mouse) =>
-            set({
-                mouse,
-            }),
+  setCatState: (catState) =>
+    set({
+      catState,
+    }),
 
-        setCatState: (catState) =>
-            set({
-                catState,
-            }),
-
-        setHoverElement: (hoverElement) =>
-            set({
-                hoverElement,
-            }),
-
-    }));
+  setHoverElement: (hoverElement) =>
+    set({
+      hoverElement,
+    }),
+}));

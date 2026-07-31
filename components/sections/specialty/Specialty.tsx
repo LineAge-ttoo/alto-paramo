@@ -3,44 +3,36 @@
 import SpecialtyButton from "./SpecialtyButton";
 
 export default function Specialty() {
+  return (
+    <section className="relative bg-black">
+      <div className="relative h-screen overflow-hidden">
+        <Image
+          src="/coffee/specialty.jpg"
+          alt="Specialty Coffee"
+          fill
+          quality={100}
+          className="parallax-image object-cover scale-110"
+        />
 
-    return (
+        <div className="absolute inset-0 bg-black/50" />
 
-        <section className="relative bg-black">
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/35 to-transparent" />
 
-            <div className="relative h-screen overflow-hidden">
-
-                <Image
-                    src="/coffee/specialty.jpg"
-                    alt="Specialty Coffee"
-                    fill
-                    quality={100}
-                    className="parallax-image object-cover scale-110"
-                />
-
-                <div className="absolute inset-0 bg-black/50" />
-
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/35 to-transparent" />
-
-                <div className="absolute inset-0 flex items-center">
-
-                    <div className="mx-auto w-full max-w-7xl px-8">
-
-                        <span
-                            className="
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-7xl px-8">
+            <span
+              className="
                                 reveal
                                 uppercase
                                 tracking-[0.45em]
                                 text-[#D2B277]
                             "
-                        >
+            >
+              SPECIALTY COFFEE
+            </span>
 
-                            SPECIALTY COFFEE
-
-                        </span>
-
-                        <h2
-                            className="
+            <h2
+              className="
                                 reveal
                                 mt-8
                                 max-w-4xl
@@ -49,16 +41,12 @@ export default function Specialty() {
                                 leading-tight
                                 text-white
                             "
-                        >
+            >
+              Cada microlote cuenta una historia distinta.
+            </h2>
 
-                            Cada microlote
-                            cuenta una
-                            historia distinta.
-
-                        </h2>
-
-                        <p
-                            className="
+            <p
+              className="
                                 reveal
                                 mt-10
                                 max-w-2xl
@@ -66,26 +54,17 @@ export default function Specialty() {
                                 leading-10
                                 text-white/75
                             "
-                        >
+            >
+              Seleccionamos pequeñas producciones para resaltar la identidad de
+              cada finca, cada cosecha y cada proceso.
+            </p>
 
-                            Seleccionamos pequeñas producciones para resaltar la identidad de cada finca, cada cosecha y cada proceso.
-
-                        </p>
-
-                        <div className="reveal">
-
-                            <SpecialtyButton />
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div className="reveal">
+              <SpecialtyButton />
             </div>
-
-        </section>
-
-    );
-
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

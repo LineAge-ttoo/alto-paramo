@@ -7,43 +7,34 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ScrollReveal(){
+export default function ScrollReveal() {
+  useEffect(() => {
+    const elements = gsap.utils.toArray<HTMLElement>(".reveal");
 
-    useEffect(()=>{
+    elements.forEach((element) => {
+      gsap.fromTo(
+        element,
 
-        const elements=gsap.utils.toArray<HTMLElement>(".reveal");
+        {
+          opacity: 0,
+          y: 80,
+        },
 
-        elements.forEach((element)=>{
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.3,
+          ease: "power3.out",
 
-            gsap.fromTo(
+          scrollTrigger: {
+            trigger: element,
+            start: "top 82%",
+            once: true,
+          },
+        },
+      );
+    });
+  }, []);
 
-                element,
-
-                {
-                    opacity:0,
-                    y:80
-                },
-
-                {
-                    opacity:1,
-                    y:0,
-                    duration:1.3,
-                    ease:"power3.out",
-
-                    scrollTrigger:{
-                        trigger:element,
-                        start:"top 82%",
-                        once:true
-                    }
-
-                }
-
-            );
-
-        });
-
-    },[]);
-
-    return null;
-
+  return null;
 }

@@ -9,61 +9,46 @@ import HeroScrollIndicator from "./HeroScrollIndicator";
 import HeroParallax from "./HeroParallax";
 
 export default function Hero() {
+  const hero = useRef<HTMLDivElement>(null);
 
-    const hero = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".hero-title", {
+        y: 60,
+        opacity: 0,
+        duration: 1.4,
+        ease: "power3.out",
+      });
 
-    useEffect(() => {
+      gsap.from(".hero-text", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        delay: 0.5,
+      });
 
-        const ctx = gsap.context(() => {
+      gsap.from(".hero-buttons", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.8,
+      });
+    }, hero);
 
-            gsap.from(".hero-title", {
-                y: 60,
-                opacity: 0,
-                duration: 1.4,
-                ease: "power3.out"
-            });
+    return () => ctx.revert();
+  }, []);
 
-            gsap.from(".hero-text", {
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                delay: .5
-            });
+  return (
+    <section ref={hero} className="relative h-screen overflow-hidden">
+      <HeroParallax />
 
-            gsap.from(".hero-buttons", {
-                y: 20,
-                opacity: 0,
-                duration: .8,
-                delay: .8
-            });
+      <HeroBackground />
 
-        }, hero);
+      <div className="relative z-10 flex h-full items-center">
+        <HeroContent />
+      </div>
 
-        return () => ctx.revert();
-
-    }, []);
-
-    return (
-
-        <section
-            ref={hero}
-            className="relative h-screen overflow-hidden"
-        >
-
-            <HeroParallax />
-
-            <HeroBackground />
-
-            <div className="relative z-10 flex h-full items-center">
-
-                <HeroContent />
-
-            </div>
-
-            <HeroScrollIndicator />
-
-        </section>
-
-    );
-
+      <HeroScrollIndicator />
+    </section>
+  );
 }

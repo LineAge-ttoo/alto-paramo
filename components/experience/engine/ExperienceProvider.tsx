@@ -4,52 +4,27 @@ import { useEffect } from "react";
 import { useExperienceStore } from "./ExperienceStore";
 
 export function ExperienceProvider({
-
-    children,
-
+  children,
 }: {
-
-    children: React.ReactNode;
-
+  children: React.ReactNode;
 }) {
+  const setMouse = useExperienceStore((s) => s.setMouse);
 
-    const setMouse =
-        useExperienceStore(
-            s => s.setMouse
-        );
+  useEffect(() => {
+    const move = (e: PointerEvent) => {
+      setMouse({
+        x: e.clientX,
 
-    useEffect(() => {
+        y: e.clientY,
+      });
+    };
 
-        const move = (
-            e: PointerEvent
-        ) => {
+    window.addEventListener("pointermove", move, {
+      passive: true,
+    });
 
-            setMouse({
+    return () => window.removeEventListener("pointermove", move);
+  }, [setMouse]);
 
-                x: e.clientX,
-
-                y: e.clientY,
-
-            });
-
-        };
-
-        window.addEventListener(
-            "pointermove",
-            move,
-            {
-                passive: true,
-            }
-        );
-
-        return () =>
-            window.removeEventListener(
-                "pointermove",
-                move
-            );
-
-    }, [setMouse]);
-
-    return children;
-
+  return children;
 }

@@ -15,33 +15,25 @@ import Journey from "@/components/sections/journey/Journey";
 import About from "@/components/sections/About";
 
 export default function Home() {
+  return (
+    <>
+      <Experience />
 
-    return (
+      <div className="relative z-10">
+        <Header />
 
-        <>
+        <Hero />
 
-            <Experience />
+        <Territory />
 
-            <div className="relative z-10">
+        <Specialty />
 
-                <Header />
+        <Regional />
 
-                <Hero />
+        <Journey />
 
-                <Territory />
-
-                <Specialty />
-
-                <Regional />
-
-                <Journey />
-
-                <About />
-
-            </div>
-
-        </>
-
-    );
-
+        <About />
+      </div>
+    </>
+  );
 }

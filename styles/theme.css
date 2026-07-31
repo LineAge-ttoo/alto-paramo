@@ -1,46 +1,41 @@
-:root{
+:root {
+  /* Fondo */
 
-/* Fondo */
+  --background: #f6f2eb;
+  --surface: #ffffff;
 
---background:#F6F2EB;
---surface:#FFFFFF;
+  /* Marca */
 
-/* Marca */
+  --forest: #254d32;
+  --forest-dark: #173321;
 
---forest:#254D32;
---forest-dark:#173321;
+  --coffee: #6f4e37;
 
---coffee:#6F4E37;
+  --gold: #c49a3a;
 
---gold:#C49A3A;
+  --sand: #e8dccb;
 
---sand:#E8DCCB;
+  /* Texto */
 
-/* Texto */
+  --text: #1e1e1e;
+  --text-light: #6c6c6c;
 
---text:#1E1E1E;
---text-light:#6C6C6C;
+  /* Radios */
 
-/* Radios */
+  --radius-xs: 8px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
 
---radius-xs:8px;
---radius-sm:14px;
---radius-md:20px;
---radius-lg:30px;
+  /* Sombras */
 
-/* Sombras */
+  --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.05);
 
---shadow-sm:
-0 5px 15px rgba(0,0,0,.05);
+  --shadow-md: 0 15px 40px rgba(0, 0, 0, 0.08);
 
---shadow-md:
-0 15px 40px rgba(0,0,0,.08);
+  --shadow-xl: 0 25px 80px rgba(0, 0, 0, 0.12);
 
---shadow-xl:
-0 25px 80px rgba(0,0,0,.12);
+  /* Layout */
 
-/* Layout */
-
---container:1400px;
-
+  --container: 1400px;
 }

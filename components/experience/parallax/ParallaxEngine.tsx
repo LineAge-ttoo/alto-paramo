@@ -7,32 +7,24 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ParallaxEngine(){
+export default function ParallaxEngine() {
+  useEffect(() => {
+    const images = gsap.utils.toArray<HTMLElement>(".parallax-image");
 
-    useEffect(()=>{
+    images.forEach((image) => {
+      gsap.to(image, {
+        yPercent: 20,
+        ease: "none",
 
-        const images=gsap.utils.toArray<HTMLElement>(".parallax-image");
+        scrollTrigger: {
+          trigger: image,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  }, []);
 
-        images.forEach((image)=>{
-
-            gsap.to(image,{
-
-                yPercent:20,
-                ease:"none",
-
-                scrollTrigger:{
-                    trigger:image,
-                    start:"top bottom",
-                    end:"bottom top",
-                    scrub:true
-                }
-
-            });
-
-        });
-
-    },[]);
-
-    return null;
-
+  return null;
 }

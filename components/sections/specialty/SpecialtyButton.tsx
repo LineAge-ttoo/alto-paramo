@@ -1,9 +1,7 @@
 ﻿export default function SpecialtyButton() {
-
-    return (
-
-        <button
-            className="
+  return (
+    <button
+      className="
                 mt-12
                 rounded-full
                 bg-[#D2B277]
@@ -16,12 +14,8 @@
                 hover:scale-105
                 hover:shadow-2xl
             "
-        >
-
-            Explorar microlotes
-
-        </button>
-
-    );
-
+    >
+      Explorar microlotes
+    </button>
+  );
 }
