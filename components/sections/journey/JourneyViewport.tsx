@@ -7,7 +7,13 @@ export default function JourneyViewport() {
 
     return (
 
-        <>
+        <section
+            className="
+                relative
+                overflow-hidden
+                bg-[#090909]
+            "
+        >
 
             {steps.map((step) => (
 
@@ -27,7 +33,7 @@ export default function JourneyViewport() {
 
             ))}
 
-        </>
+        </section>
 
     );
 

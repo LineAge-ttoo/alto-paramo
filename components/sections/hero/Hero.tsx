@@ -16,53 +16,71 @@ export default function Hero() {
 
         const ctx = gsap.context(() => {
 
-            gsap.from(".hero-title", {
-                y: 60,
-                opacity: 0,
-                duration: 1.4,
-                ease: "power3.out",
+            gsap.from(".hero-title",{
+
+                y:60,
+
+                opacity:0,
+
+                duration:1.4,
+
+                ease:"power3.out"
+
             });
 
-            gsap.from(".hero-text", {
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                delay: 0.5,
-                ease: "power3.out",
+            gsap.from(".hero-text",{
+
+                y:30,
+
+                opacity:0,
+
+                duration:1,
+
+                delay:.5
+
             });
 
-            gsap.from(".hero-buttons", {
-                y: 20,
-                opacity: 0,
-                duration: 0.8,
-                delay: 0.8,
-                ease: "power3.out",
+            gsap.from(".hero-buttons",{
+
+                y:20,
+
+                opacity:0,
+
+                duration:.8,
+
+                delay:.8
+
             });
 
-        }, hero);
+        },hero);
 
-        return () => ctx.revert();
+        return ()=>ctx.revert();
 
-    }, []);
+    },[]);
 
-    return (
+    return(
 
         <section
+
+            data-scene="hero"
+
             ref={hero}
+
             className="relative h-screen overflow-hidden"
+
         >
 
-            <HeroParallax />
+            <HeroParallax/>
 
-            <HeroBackground />
+            <HeroBackground/>
 
             <div className="relative z-10 flex h-full items-center">
 
-                <HeroContent />
+                <HeroContent/>
 
             </div>
 
-            <HeroScrollIndicator />
+            <HeroScrollIndicator/>
 
         </section>
 

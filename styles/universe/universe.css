@@ -1,0 +1,25 @@
+:root{
+
+    --ambient-light:18%;
+
+    --scroll-progress:0;
+
+    --scene-overlay-opacity:.16;
+
+    --scene-overlay-color:199,169,107;
+
+    --scene-transition:1800ms;
+
+}
+
+body{
+
+    transition:
+
+        background var(--scene-transition) ease,
+
+        color 900ms ease,
+
+        filter var(--scene-transition) ease;
+
+}

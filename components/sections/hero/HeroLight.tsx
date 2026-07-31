@@ -1,19 +1,51 @@
-﻿export default function HeroLight() {
-  return (
-    <div
-      className="
+﻿"use client";
+
+import { useSceneStore } from "@/components/experience/sceneStore";
+
+export default function HeroLight(){
+
+    const{
+
+        ambient,
+
+        warmth,
+
+        brightness
+
+    }=useSceneStore();
+
+    return(
+
+        <div
+
+            className="
                 hero-glow
                 absolute
-                top-0
                 left-1/2
-                h-[900px]
-                w-[900px]
+                top-0
                 -translate-x-1/2
                 rounded-full
-                bg-amber-200/10
-                blur-[180px]
                 pointer-events-none
+                transition-all
+                duration-[1800ms]
             "
-    />
-  );
+
+            style={{
+
+                width:900*ambient,
+
+                height:900*ambient,
+
+                filter:`blur(${180*ambient}px)`,
+
+                opacity:.12*brightness,
+
+                background:`rgba(255,220,170,${0.15*warmth})`
+
+            }}
+
+        />
+
+    );
+
 }

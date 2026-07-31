@@ -1,0 +1,23 @@
+.wrapper{
+
+    position:relative;
+
+}
+
+.journeyImage{
+
+    transform:scale(1.08);
+
+    transition:transform 8s ease;
+
+}
+
+.journeyTransition{
+
+    transition:
+
+        opacity .8s ease,
+
+        transform 1.2s ease;
+
+}

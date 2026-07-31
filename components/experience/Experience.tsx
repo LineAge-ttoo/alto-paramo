@@ -2,24 +2,25 @@
 
 import { ExperienceProvider } from "./engine";
 
-import AmbientEngine from "./ambient/AmbientEngine";
 import CatGuide from "./cat/CatGuide";
-import ParallaxEngine from "./parallax/ParallaxEngine";
-import ScrollReveal from "./scroll/ScrollReveal";
 import StickyEngine from "./sticky/StickyEngine";
 
+import ExperienceEngine from "./engines/ExperienceEngine";
+
 export default function Experience() {
-  return (
-    <ExperienceProvider>
-      <AmbientEngine />
 
-      <ScrollReveal />
+    return (
 
-      <ParallaxEngine />
+        <ExperienceProvider>
 
-      <StickyEngine />
+            <ExperienceEngine />
 
-      <CatGuide />
-    </ExperienceProvider>
-  );
+            <StickyEngine />
+
+            <CatGuide />
+
+        </ExperienceProvider>
+
+    );
+
 }

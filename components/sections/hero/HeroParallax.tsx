@@ -2,73 +2,108 @@
 
 import { useEffect } from "react";
 
+import { useSceneStore } from "@/components/experience/sceneStore";
+
 export default function HeroParallax() {
+
+    const scene = useSceneStore((state) => state.scene);
 
     useEffect(() => {
 
-        const image = document.querySelector<HTMLElement>(".hero-bg");
+        const layers = document.querySelectorAll<HTMLElement>("[data-depth]");
 
-        if (!image) return;
+        if (!layers.length) return;
 
         let mouseX = 0;
         let mouseY = 0;
 
-        let currentX = 0;
-        let currentY = 0;
+        let smoothX = 0;
+        let smoothY = 0;
 
-        let scrollY = 0;
+        let scroll = window.scrollY;
 
-        function mouseMove(e: MouseEvent){
+        let frame = 0;
+
+        const sceneMultiplier = {
+
+            hero:1,
+
+            territory:.75,
+
+            specialty:.55,
+
+            coffee:.45,
+
+            journey:.35,
+
+            about:.25
+
+        } as const;
+
+        const multiplier =
+            sceneMultiplier[scene] ?? 1;
+
+        const onMouseMove = (e:MouseEvent)=>{
 
             mouseX =
-                (e.clientX / window.innerWidth - 0.5) * 18;
+                (e.clientX/window.innerWidth-.5)*30;
 
             mouseY =
-                (e.clientY / window.innerHeight - 0.5) * 18;
+                (e.clientY/window.innerHeight-.5)*30;
 
-        }
+        };
 
-        function onScroll(){
+        const onScroll=()=>{
 
-            scrollY =
-                window.scrollY * 0.18;
+            scroll=window.scrollY;
 
-        }
+        };
 
-        function animate(){
+        const animate=()=>{
 
-            currentX += (mouseX-currentX)*0.06;
+            smoothX += (mouseX-smoothX)*0.06;
 
-            currentY += (mouseY-currentY)*0.06;
+            smoothY += (mouseY-smoothY)*0.06;
 
-            image.style.transform = `
-                translate3d(
-                    ${currentX}px,
-                    ${currentY + scrollY}px,
-                    0
-                )
-                scale(1.12)
-            `;
+            layers.forEach(layer=>{
 
-            requestAnimationFrame(animate);
+                const depth =
+                    Number(layer.dataset.depth ?? 0);
 
-        }
+                const x =
+                    smoothX*depth*multiplier;
+
+                const y =
+                    smoothY*depth*multiplier +
+                    scroll*depth*.12;
+
+                layer.style.transform =
+
+                    `translate3d(${x}px,${y}px,0) scale(1.08)`;
+
+            });
+
+            frame=requestAnimationFrame(animate);
+
+        };
 
         animate();
 
-        window.addEventListener("mousemove",mouseMove);
+        window.addEventListener("mousemove",onMouseMove);
 
         window.addEventListener("scroll",onScroll);
 
-        return ()=>{
+        return()=>{
 
-            window.removeEventListener("mousemove",mouseMove);
+            cancelAnimationFrame(frame);
+
+            window.removeEventListener("mousemove",onMouseMove);
 
             window.removeEventListener("scroll",onScroll);
 
         };
 
-    },[]);
+    },[scene]);
 
     return null;
 

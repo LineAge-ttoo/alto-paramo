@@ -13,20 +13,42 @@ export default function SpecialtyBackground() {
                 quality={100}
                 className="
                     object-cover
-                    brightness-[1.06]
-                    contrast-[1.02]
-                    saturate-[1.08]
+                    brightness-[1.10]
+                    contrast-[1.04]
+                    saturate-[1.10]
+                    transition-all
+                    duration-[1800ms]
                 "
             />
 
-            <div className="absolute inset-0 bg-black/30"/>
+            {/* Color ambiental del Universo */}
 
             <div
+
                 className="absolute inset-0"
+
                 style={{
+
                     background:
-                    "linear-gradient(to bottom, rgba(8,8,8,.85), rgba(8,8,8,.15) 30%, rgba(8,8,8,.75) 100%)"
+                        "rgba(var(--scene-overlay-color), calc(var(--scene-overlay-opacity) * .40))"
+
                 }}
+
+            />
+
+            {/* Gradiente */}
+
+            <div
+
+                className="absolute inset-0"
+
+                style={{
+
+                    background:
+                        "linear-gradient(to bottom, rgba(0,0,0,.45), transparent 30%, rgba(0,0,0,.60) 100%)"
+
+                }}
+
             />
 
         </>

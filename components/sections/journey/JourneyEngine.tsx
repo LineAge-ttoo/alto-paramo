@@ -5,23 +5,34 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+import { useJourneyStore } from "./journeyStore";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function JourneyEngine() {
+
+    const setActive = useJourneyStore((state) => state.setActive);
 
     useEffect(() => {
 
         const ctx = gsap.context(() => {
 
-            const cards = gsap.utils.toArray<HTMLElement>(".journey-card");
+            const cards =
+                gsap.utils.toArray<HTMLElement>(".journey-card");
 
-            cards.forEach((card) => {
+            cards.forEach((card,index)=>{
 
-                const image = card.querySelector(".journey-image");
+                const image =
+                    card.querySelector(".journey-image");
 
-                const content = card.querySelector(".journey-content");
+                const content =
+                    card.querySelector(".journey-content");
 
-                if (!image || !content) return;
+                if(!image || !content) return;
+
+                //------------------------------------------
+                // Imagen
+                //------------------------------------------
 
                 gsap.fromTo(
 
@@ -29,9 +40,9 @@ export default function JourneyEngine() {
 
                     {
 
-                        scale:1.15,
+                        scale:1.12,
 
-                        opacity:.75
+                        opacity:.82
 
                     },
 
@@ -59,6 +70,10 @@ export default function JourneyEngine() {
 
                 );
 
+                //------------------------------------------
+                // Texto
+                //------------------------------------------
+
                 gsap.fromTo(
 
                     content,
@@ -77,7 +92,9 @@ export default function JourneyEngine() {
 
                         opacity:1,
 
-                        ease:"power2.out",
+                        duration:1,
+
+                        ease:"power3.out",
 
                         scrollTrigger:{
 
@@ -85,9 +102,7 @@ export default function JourneyEngine() {
 
                             start:"top 70%",
 
-                            end:"top 40%",
-
-                            scrub:1
+                            toggleActions:"play none none reverse"
 
                         }
 
@@ -95,13 +110,39 @@ export default function JourneyEngine() {
 
                 );
 
+                //------------------------------------------
+                // Indicador
+                //------------------------------------------
+
+                ScrollTrigger.create({
+
+                    trigger:card,
+
+                    start:"top center",
+
+                    end:"bottom center",
+
+                    onEnter(){
+
+                        setActive(index);
+
+                    },
+
+                    onEnterBack(){
+
+                        setActive(index);
+
+                    }
+
+                });
+
             });
 
         });
 
-        return () => ctx.revert();
+        return()=>ctx.revert();
 
-    }, []);
+    },[setActive]);
 
     return null;
 

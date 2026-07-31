@@ -7,7 +7,18 @@ export default function Territory() {
 
     return (
 
-        <section className="relative min-h-screen overflow-hidden bg-[#090909]">
+        <section
+
+            data-scene="territory"
+
+            className="
+                relative
+                min-h-screen
+                overflow-hidden
+                bg-[#090909]
+            "
+
+        >
 
             <TerritoryBackground/>
 

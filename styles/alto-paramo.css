@@ -1,122 +1,13 @@
-/* ==========================================================
-   ALTO PÁRAMO DESIGN SYSTEM
-========================================================== */
+@import "./universe/universe.css";
 
-:root{
+@import "./universe/light.css";
 
-    --ap-black:#090909;
+@import "./universe/scenes.css";
 
-    --ap-surface:#111111;
+@import "./animations/hero.css";
 
-    --ap-gold:#D7C18A;
+@import "./animations/fog.css";
 
-    --ap-gold-light:#E8D7A6;
+@import "./animations/particles.css";
 
-    --ap-white:#F8F8F6;
-
-    --ap-text:rgba(255,255,255,.78);
-
-    --ap-radius:34px;
-
-    --ap-transition:.45s cubic-bezier(.22,.61,.36,1);
-
-    --ap-shadow:
-        0 35px 90px rgba(0,0,0,.35);
-
-}
-
-/* ================= TITLES ================= */
-
-.ap-title{
-
-    font-size:clamp(3rem,6vw,6rem);
-
-    font-weight:900;
-
-    line-height:.95;
-
-    letter-spacing:-.04em;
-
-    color:var(--ap-white);
-
-}
-
-.ap-subtitle{
-
-    font-size:.82rem;
-
-    text-transform:uppercase;
-
-    letter-spacing:.42em;
-
-    color:var(--ap-gold);
-
-}
-
-/* ================= TEXT ================= */
-
-.ap-text{
-
-    font-size:1.12rem;
-
-    line-height:2;
-
-    color:var(--ap-text);
-
-}
-
-/* ================= BUTTON ================= */
-
-.ap-button{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:16px 34px;
-
-    border-radius:999px;
-
-    border:1px solid var(--ap-gold);
-
-    color:var(--ap-gold);
-
-    transition:var(--ap-transition);
-
-}
-
-.ap-button:hover{
-
-    background:var(--ap-gold);
-
-    color:#111;
-
-}
-
-/* ================= CARD ================= */
-
-.ap-card{
-
-    overflow:hidden;
-
-    border-radius:var(--ap-radius);
-
-    background:rgba(255,255,255,.03);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(20px);
-
-    transition:var(--ap-transition);
-
-}
-
-.ap-card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:var(--ap-shadow);
-
-}
+@import "./components/journey.css";

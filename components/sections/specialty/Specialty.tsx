@@ -7,7 +7,18 @@ export default function Specialty() {
 
     return (
 
-        <section className="relative min-h-screen overflow-hidden bg-[#070707]">
+        <section
+
+            data-scene="specialty"
+
+            className="
+                relative
+                min-h-screen
+                overflow-hidden
+                bg-[#070707]
+            "
+
+        >
 
             <SpecialtyBackground/>
 

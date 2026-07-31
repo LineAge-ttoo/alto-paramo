@@ -1,29 +1,35 @@
 "use client";
 
-import { useState } from "react";
-
-import "./journey.css";
-
 import JourneyViewport from "./JourneyViewport";
-import JourneyProgress from "./JourneyProgress";
 import JourneyEngine from "./JourneyEngine";
+import CoffeeBranch from "./CoffeeBranch";
 
-export default function Journey(){
+import { steps } from "./data";
+import { useJourneyStore } from "./journeyStore";
 
-    const [active]=useState(0);
+export default function Journey() {
+
+    const active = useJourneyStore((state)=>state.active);
 
     return(
 
         <section
-            className="
-                relative
-                bg-[#090909]
-            "
+
+            data-scene="journey"
+
+            className="relative bg-[#090909]"
+
         >
 
             <JourneyEngine/>
 
-            <JourneyProgress active={active}/>
+            <CoffeeBranch
+
+                active={active}
+
+                total={steps.length}
+
+            />
 
             <JourneyViewport/>
 

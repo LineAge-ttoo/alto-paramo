@@ -428,3 +428,137 @@ body {
     }
 
 }
+:root{
+
+    --ambient-light:18%;
+
+    --scroll-progress:0;
+
+}
+
+body{
+
+    background:
+        radial-gradient(
+
+            circle at center,
+
+            rgba(199,169,107,calc(var(--scroll-progress) * .04)),
+
+            transparent 55%
+
+        ),
+
+        #0d0d0d;
+
+}
+/* ==========================================================
+   UNIVERSE STATES
+========================================================== */
+
+body{
+
+    transition:
+
+        background 2s ease,
+
+        color 1s ease;
+
+}
+
+/* HERO */
+
+body[data-scene="hero"]{
+
+    --ambient-light:22%;
+
+}
+
+/* TERRITORY */
+
+body[data-scene="territory"]{
+
+    --ambient-light:18%;
+
+}
+
+/* SPECIALTY */
+
+body[data-scene="specialty"]{
+
+    --ambient-light:15%;
+
+}
+
+/* COFFEE */
+
+body[data-scene="coffee"]{
+
+    --ambient-light:12%;
+
+}
+
+/* JOURNEY */
+
+body[data-scene="journey"]{
+
+    --ambient-light:9%;
+
+}
+
+/* ABOUT */
+
+body[data-scene="about"]{
+
+    --ambient-light:16%;
+
+}
+/* =======================================================
+UNIVERSE
+=======================================================*/
+
+body{
+
+transition:
+
+background 2s ease,
+
+filter 2s ease;
+
+}
+
+body[data-scene="hero"]{
+
+background:#090909;
+
+}
+
+body[data-scene="territory"]{
+
+background:#101010;
+
+}
+
+body[data-scene="specialty"]{
+
+background:#111111;
+
+}
+
+body[data-scene="coffee"]{
+
+background:#151515;
+
+}
+
+body[data-scene="journey"]{
+
+background:#171717;
+
+}
+
+body[data-scene="about"]{
+
+background:#1b1b1b;
+
+}

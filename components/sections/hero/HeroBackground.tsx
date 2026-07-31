@@ -8,77 +8,83 @@ import HeroTransition from "@/components/effects/transition/HeroTransition";
 
 export default function HeroBackground() {
 
-    return (
+    return(
 
         <>
 
-            {/* Imagen principal */}
-
             <Image
+
+                data-depth="0.22"
+
                 src="/coffee/hero.jpg"
+
                 alt="Paisaje Alto Páramo"
+
                 fill
+
                 priority
+
                 quality={100}
+
                 className="
                     hero-bg
                     hero-floating
                     object-cover
                     scale-105
-                    brightness-[1.12]
-                    contrast-[1.02]
+                    brightness-[1.08]
+                    contrast-[1.03]
                     saturate-[1.08]
                 "
+
             />
 
-            {/* Oscurecimiento base */}
-
-            <div className="absolute inset-0 bg-black/15" />
-
-            {/* Luz ambiental */}
-
-            <HeroLight />
-
-            {/* Luz cálida */}
-
             <div
+
+                data-depth="0.08"
+
                 className="absolute inset-0"
+
                 style={{
+
                     background:
-                        "radial-gradient(circle at 72% 22%, rgba(225,190,110,.28), transparent 42%)"
+                    "rgba(var(--scene-overlay-color), var(--scene-overlay-opacity))"
+
                 }}
+
             />
 
-            {/* Partículas de café */}
+            <div data-depth="0.04">
 
-            <CoffeeParticles />
+                <HeroLight/>
 
-            {/* Niebla */}
+            </div>
 
-            <HeroFog />
+            <div data-depth="0.12">
 
-            {/* Gradiente inferior */}
+                <CoffeeParticles/>
+
+            </div>
+
+            <div data-depth="0.06">
+
+                <HeroFog/>
+
+            </div>
 
             <div
+
                 className="absolute inset-0"
+
                 style={{
+
                     background:
-                        "linear-gradient(to top, rgba(0,0,0,.70), rgba(0,0,0,.10) 45%, transparent)"
+                    "linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.05) 45%, transparent)"
+
                 }}
+
             />
 
-            {/* Viñeta */}
-
-            <div
-                className="absolute inset-0"
-                style={{
-                    boxShadow: "inset 0 0 90px rgba(0,0,0,.28)"
-                }}
-            />
-
-            {/* Transición hacia la siguiente sección */}
-
-            <HeroTransition />
+            <HeroTransition/>
 
         </>
 

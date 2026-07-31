@@ -2,23 +2,47 @@
 
 import CoffeeCard from "./CoffeeCard";
 
-export default function CoffeeLines(){
+export default function CoffeeLines() {
 
-    return(
+    return (
 
-        <section className="relative bg-[#090909] py-40">
+        <section
+
+            data-scene="coffee"
+
+            className="
+                relative
+                bg-[#090909]
+                py-40
+            "
+
+        >
 
             <div className="mx-auto max-w-7xl px-8">
 
                 <div className="mb-28 text-center">
 
-                    <p className="uppercase tracking-[0.45em] text-[#d7c18a]">
+                    <p
+                        className="
+                            uppercase
+                            tracking-[0.45em]
+                            text-[#d7c18a]
+                        "
+                    >
 
                         NUESTRAS DOS LÍNEAS
 
                     </p>
 
-                    <h2 className="mt-8 text-6xl font-black text-white md:text-7xl">
+                    <h2
+                        className="
+                            mt-8
+                            text-6xl
+                            font-black
+                            text-white
+                            md:text-7xl
+                        "
+                    >
 
                         Dos expresiones.
 
@@ -28,11 +52,21 @@ export default function CoffeeLines(){
 
                     </h2>
 
-                    <p className="mx-auto mt-10 max-w-3xl text-xl leading-9 text-white/70">
+                    <p
+                        className="
+                            mx-auto
+                            mt-10
+                            max-w-3xl
+                            text-xl
+                            leading-9
+                            text-white/70
+                        "
+                    >
 
-                        Alto Páramo nace de un único origen, pero se expresa
-                        a través de dos propuestas cuidadosamente diseñadas
-                        para diferentes formas de disfrutar el café.
+                        Alto Páramo nace de un único origen,
+                        pero se expresa a través de dos propuestas
+                        cuidadosamente diseñadas para diferentes
+                        formas de disfrutar el café.
 
                     </p>
 
