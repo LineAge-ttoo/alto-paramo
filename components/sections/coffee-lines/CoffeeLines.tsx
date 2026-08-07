@@ -8,6 +8,8 @@ export default function CoffeeLines() {
 
         <section
 
+            id="coffee"
+
             data-scene="coffee"
 
             className="
@@ -23,11 +25,13 @@ export default function CoffeeLines() {
                 <div className="mb-28 text-center">
 
                     <p
+
                         className="
                             uppercase
                             tracking-[0.45em]
-                            text-[#d7c18a]
+                            text-[#D7C18A]
                         "
+
                     >
 
                         NUESTRAS DOS LÍNEAS
@@ -35,24 +39,28 @@ export default function CoffeeLines() {
                     </p>
 
                     <h2
+
                         className="
                             mt-8
                             text-6xl
                             font-black
+                            leading-none
                             text-white
                             md:text-7xl
                         "
+
                     >
 
                         Dos expresiones.
 
-                        <br/>
+                        <br />
 
                         Un mismo territorio.
 
                     </h2>
 
                     <p
+
                         className="
                             mx-auto
                             mt-10
@@ -61,12 +69,12 @@ export default function CoffeeLines() {
                             leading-9
                             text-white/70
                         "
+
                     >
 
-                        Alto Páramo nace de un único origen,
-                        pero se expresa a través de dos propuestas
-                        cuidadosamente diseñadas para diferentes
-                        formas de disfrutar el café.
+                        El mismo territorio se expresa de dos maneras.
+                        Una busca revelar toda la complejidad del origen;
+                        la otra acompaña la vida cotidiana sin perder su esencia.
 
                     </p>
 
@@ -78,11 +86,15 @@ export default function CoffeeLines() {
 
                         title="Especial"
 
-                        subtitle="MICROLOTES"
+                        subtitle="SPECIALTY COFFEE"
 
-                        image="/coffee/specialty.jpg"
+                        image="/coffee/specialty-line.jpg"
 
-                        description="Variedades seleccionadas, procesos controlados y perfiles sensoriales únicos para quienes buscan descubrir la identidad de cada finca."
+                        description="
+                        Microlotes de producción limitada,
+                        perfiles sensoriales complejos
+                        y una trazabilidad completa desde la finca hasta la taza.
+                        "
 
                     />
 
@@ -90,11 +102,15 @@ export default function CoffeeLines() {
 
                         title="Regional"
 
-                        subtitle="TRADICIÓN"
+                        subtitle="ORIGEN"
 
-                        image="/coffee/regional.jpg"
+                        image="/coffee/regional-line.jpg"
 
-                        description="Una expresión equilibrada del territorio, pensada para el consumo cotidiano sin perder el carácter y la calidad del origen."
+                        description="
+                        Un café pensado para compartir todos los días,
+                        manteniendo la identidad del Macizo Colombiano
+                        en una taza cercana y honesta.
+                        "
 
                     />
 

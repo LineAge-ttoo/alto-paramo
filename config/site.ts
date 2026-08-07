@@ -1,14 +1,39 @@
 ﻿export const site = {
-  name: "Alto Páramo",
-  description: "Café de Especialidad del Macizo Colombiano",
-  url: "https://altoparamo.com",
-  locale: "es-CO",
+    name: "Alto Páramo",
 
-  navigation: [
-    { label: "Inicio", href: "/" },
-    { label: "Café", href: "/cafe" },
-    { label: "Productores", href: "/productores" },
-    { label: "Academia", href: "/academia" },
-    { label: "Contacto", href: "/contacto" },
-  ],
+    description: "Café de Especialidad del Macizo Colombiano",
+
+    url: "https://altoparamo.com",
+
+    locale: "es-CO",
+
+    navigation: [
+
+        {
+            label: "Inicio",
+            href: "#hero"
+        },
+
+        {
+            label: "Territorio",
+            href: "#territory"
+        },
+
+        {
+            label: "Café",
+            href: "#coffee"
+        },
+
+        {
+            label: "Proceso",
+            href: "#journey"
+        },
+
+        {
+            label: "Nosotros",
+            href: "#about"
+        }
+
+    ]
+
 };

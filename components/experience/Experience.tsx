@@ -6,6 +6,7 @@ import CatGuide from "./cat/CatGuide";
 import StickyEngine from "./sticky/StickyEngine";
 
 import ExperienceEngine from "./engines/ExperienceEngine";
+import SmoothScroll from "./providers/SmoothScroll";
 
 export default function Experience() {
 
@@ -13,11 +14,19 @@ export default function Experience() {
 
         <ExperienceProvider>
 
-            <ExperienceEngine />
+            {/* Scroll del Universo */}
 
-            <StickyEngine />
+            <SmoothScroll/>
 
-            <CatGuide />
+            {/* Motores principales */}
+
+            <ExperienceEngine/>
+
+            <StickyEngine/>
+
+            {/* Experiencias futuras */}
+
+            <CatGuide/>
 
         </ExperienceProvider>
 

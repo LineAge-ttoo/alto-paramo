@@ -9,6 +9,8 @@ export default function Territory() {
 
         <section
 
+            id="territory"
+
             data-scene="territory"
 
             className="

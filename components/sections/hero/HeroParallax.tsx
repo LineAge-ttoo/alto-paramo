@@ -6,98 +6,113 @@ import { useSceneStore } from "@/components/experience/sceneStore";
 
 export default function HeroParallax() {
 
-    const scene = useSceneStore((state) => state.scene);
+    const scene = useSceneStore(state=>state.scene);
 
-    useEffect(() => {
+    useEffect(()=>{
 
-        const layers = document.querySelectorAll<HTMLElement>("[data-depth]");
+        const layers =
+            document.querySelectorAll<HTMLElement>("[data-depth]");
 
-        if (!layers.length) return;
+        if(!layers.length) return;
 
-        let mouseX = 0;
-        let mouseY = 0;
+        let mouseX=0;
+        let mouseY=0;
 
-        let smoothX = 0;
-        let smoothY = 0;
+        let cameraX=0;
+        let cameraY=0;
 
-        let scroll = window.scrollY;
+        let scrollY=window.scrollY;
 
-        let frame = 0;
+        let raf=0;
 
-        const sceneMultiplier = {
+        const sceneIntensity={
 
             hero:1,
 
-            territory:.75,
+            territory:.80,
 
-            specialty:.55,
+            specialty:.65,
 
-            coffee:.45,
+            coffee:.55,
 
-            journey:.35,
+            journey:.45,
 
-            about:.25
+            about:.35
 
         } as const;
 
-        const multiplier =
-            sceneMultiplier[scene] ?? 1;
+        const intensity=
+            sceneIntensity[scene] ?? 1;
 
-        const onMouseMove = (e:MouseEvent)=>{
+        const onMouse=(e:MouseEvent)=>{
 
-            mouseX =
-                (e.clientX/window.innerWidth-.5)*30;
+            mouseX=
+                (e.clientX/window.innerWidth-.5)*26;
 
-            mouseY =
-                (e.clientY/window.innerHeight-.5)*30;
+            mouseY=
+                (e.clientY/window.innerHeight-.5)*22;
 
         };
 
         const onScroll=()=>{
 
-            scroll=window.scrollY;
+            scrollY=window.scrollY;
 
         };
 
-        const animate=()=>{
+        function animate(){
 
-            smoothX += (mouseX-smoothX)*0.06;
+            cameraX+=(mouseX-cameraX)*0.045;
 
-            smoothY += (mouseY-smoothY)*0.06;
+            cameraY+=(mouseY-cameraY)*0.045;
 
             layers.forEach(layer=>{
 
-                const depth =
-                    Number(layer.dataset.depth ?? 0);
+                const depth=
+                    Number(layer.dataset.depth ?? .1);
 
-                const x =
-                    smoothX*depth*multiplier;
+                const translateX=
+                    cameraX*depth*intensity;
 
-                const y =
-                    smoothY*depth*multiplier +
-                    scroll*depth*.12;
+                const translateY=
+                    cameraY*depth*intensity+
+                    scrollY*depth*.08;
 
-                layer.style.transform =
+                const rotateY=
+                    cameraX*.02*depth;
 
-                    `translate3d(${x}px,${y}px,0) scale(1.08)`;
+                const rotateX=
+                    -cameraY*.02*depth;
+
+                layer.style.transform=`
+
+                    translate3d(${translateX}px,${translateY}px,0)
+
+                    rotateX(${rotateX}deg)
+
+                    rotateY(${rotateY}deg)
+
+                    scale(${1.05+depth*.06})
+
+                `;
 
             });
 
-            frame=requestAnimationFrame(animate);
+            raf=requestAnimationFrame(animate);
 
-        };
+        }
 
         animate();
 
-        window.addEventListener("mousemove",onMouseMove);
+        window.addEventListener("mousemove",onMouse);
 
-        window.addEventListener("scroll",onScroll);
+        window.addEventListener("scroll",onScroll,{passive:true});
 
         return()=>{
 
-            cancelAnimationFrame(frame);
+            cancelAnimationFrame(raf);
 
-            window.removeEventListener("mousemove",onMouseMove);
+            window.removeEventListener("mousemove",onMouse);
 
             window.removeEventListener("scroll",onScroll);
 

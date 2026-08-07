@@ -1,19 +1,22 @@
 "use client";
 
+import { useState } from "react";
+
 import JourneyViewport from "./JourneyViewport";
 import JourneyEngine from "./JourneyEngine";
 import CoffeeBranch from "./CoffeeBranch";
 
 import { steps } from "./data";
-import { useJourneyStore } from "./journeyStore";
 
 export default function Journey() {
 
-    const active = useJourneyStore((state)=>state.active);
+    const [active] = useState(0);
 
-    return(
+    return (
 
         <section
+
+            id="journey"
 
             data-scene="journey"
 
@@ -21,7 +24,7 @@ export default function Journey() {
 
         >
 
-            <JourneyEngine/>
+            <JourneyEngine />
 
             <CoffeeBranch
 
@@ -31,7 +34,7 @@ export default function Journey() {
 
             />
 
-            <JourneyViewport/>
+            <JourneyViewport />
 
         </section>
 

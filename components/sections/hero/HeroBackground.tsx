@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import Depth from "@/components/experience/Depth";
+
 import HeroFog from "./HeroFog";
 import HeroLight from "./HeroLight";
 
@@ -8,68 +10,77 @@ import HeroTransition from "@/components/effects/transition/HeroTransition";
 
 export default function HeroBackground() {
 
-    return(
+    return (
 
         <>
 
-            <Image
+            {/* Fotografía principal (NO MODIFICAR) */}
 
-                data-depth="0.22"
+            <Depth layer="background">
 
-                src="/coffee/hero.jpg"
+                <Image
+                    src="/coffee/hero.jpg"
+                    alt="Paisaje Alto Páramo"
+                    fill
+                    priority
+                    quality={100}
+                    className="
+                        hero-bg
+                        hero-floating
+                        object-cover
+                        scale-105
+                        brightness-[1.12]
+                        contrast-[1.02]
+                        saturate-[1.08]
+                    "
+                />
 
-                alt="Paisaje Alto Páramo"
+            </Depth>
 
-                fill
+            {/* Oscurecimiento suave */}
 
-                priority
+            <div className="absolute inset-0 bg-black/15"/>
 
-                quality={100}
+            {/* Luz principal */}
 
-                className="
-                    hero-bg
-                    hero-floating
-                    object-cover
-                    scale-105
-                    brightness-[1.08]
-                    contrast-[1.03]
-                    saturate-[1.08]
-                "
+            <Depth layer="light">
 
-            />
+                <HeroLight/>
+
+            </Depth>
+
+            {/* Luz cálida */}
 
             <div
-
-                data-depth="0.08"
 
                 className="absolute inset-0"
 
                 style={{
 
                     background:
-                    "rgba(var(--scene-overlay-color), var(--scene-overlay-opacity))"
+                        "radial-gradient(circle at 72% 22%, rgba(225,190,110,.28), transparent 42%)"
 
                 }}
 
             />
 
-            <div data-depth="0.04">
+            {/* Partículas */}
 
-                <HeroLight/>
-
-            </div>
-
-            <div data-depth="0.12">
+            <Depth layer="particles">
 
                 <CoffeeParticles/>
 
-            </div>
+            </Depth>
 
-            <div data-depth="0.06">
+            {/* Niebla */}
+
+            <Depth layer="fog">
 
                 <HeroFog/>
 
-            </div>
+            </Depth>
+
+            {/* Gradiente */}
 
             <div
 
@@ -78,7 +89,22 @@ export default function HeroBackground() {
                 style={{
 
                     background:
-                    "linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.05) 45%, transparent)"
+                        "linear-gradient(to top, rgba(0,0,0,.70), rgba(0,0,0,.10) 45%, transparent)"
+
+                }}
+
+            />
+
+            {/* Viñeta */}
+
+            <div
+
+                className="absolute inset-0"
+
+                style={{
+
+                    boxShadow:
+                        "inset 0 0 90px rgba(0,0,0,.28)"
 
                 }}
 
