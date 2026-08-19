@@ -23,7 +23,8 @@ export default function HeroBackground() {
                     alt="Paisaje Alto Páramo"
                     fill
                     priority
-                    quality={100}
+                    quality={88}
+                    sizes="100vw"
                     className="
                         hero-bg
                         hero-floating

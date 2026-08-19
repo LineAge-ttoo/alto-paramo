@@ -10,7 +10,8 @@ export default function SpecialtyBackground() {
                 src="/coffee/specialty.jpg"
                 alt="Café de Especialidad"
                 fill
-                quality={100}
+                quality={88}
+                sizes="100vw"
                 className="
                     object-cover
                     brightness-[1.10]

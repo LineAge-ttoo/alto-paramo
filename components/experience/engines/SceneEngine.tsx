@@ -5,9 +5,22 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-import { useSceneStore } from "../sceneStore";
+import { useSceneStore, type SceneName } from "../sceneStore";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const VALID_SCENES: readonly SceneName[] = [
+    "hero",
+    "territory",
+    "specialty",
+    "coffee",
+    "journey",
+    "about"
+];
+
+function isSceneName(scene: string): scene is SceneName {
+    return (VALID_SCENES as readonly string[]).includes(scene);
+}
 
 export default function SceneEngine() {
 
@@ -23,7 +36,7 @@ export default function SceneEngine() {
 
                 const scene = section.dataset.scene;
 
-                if (!scene) return;
+                if (!scene || !isSceneName(scene)) return;
 
                 ScrollTrigger.create({
 

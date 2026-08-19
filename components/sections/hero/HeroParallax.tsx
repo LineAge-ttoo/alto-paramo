@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 
@@ -60,62 +60,70 @@ export default function HeroParallax() {
 
         };
 
-        function animate(){
+        let isVisible = true;
+        let isRunning = false;
 
-            cameraX+=(mouseX-cameraX)*0.045;
+        const heroEl = document.getElementById("hero") || document.querySelector('[data-scene="hero"]');
 
-            cameraY+=(mouseY-cameraY)*0.045;
+        const observer = heroEl
+            ? new IntersectionObserver(
+                  ([entry]) => {
+                      isVisible = entry.isIntersecting;
+                      if (isVisible && !isRunning) {
+                          isRunning = true;
+                          raf = requestAnimationFrame(animate);
+                      }
+                  },
+                  { rootMargin: "100px" }
+              )
+            : null;
 
-            layers.forEach(layer=>{
-
-                const depth=
-                    Number(layer.dataset.depth ?? .1);
-
-                const translateX=
-                    cameraX*depth*intensity;
-
-                const translateY=
-                    cameraY*depth*intensity+
-                    scrollY*depth*.08;
-
-                const rotateY=
-                    cameraX*.02*depth;
-
-                const rotateX=
-                    -cameraY*.02*depth;
-
-                layer.style.transform=`
-
-                    translate3d(${translateX}px,${translateY}px,0)
-
-                    rotateX(${rotateX}deg)
-
-                    rotateY(${rotateY}deg)
-
-                    scale(${1.05+depth*.06})
-
-                `;
-
-            });
-
-            raf=requestAnimationFrame(animate);
-
+        if (heroEl && observer) {
+            observer.observe(heroEl);
         }
 
+        function animate() {
+            if (!isVisible) {
+                isRunning = false;
+                return;
+            }
+
+            cameraX += (mouseX - cameraX) * 0.045;
+            cameraY += (mouseY - cameraY) * 0.045;
+
+            layers.forEach((layer) => {
+                const depth = Number(layer.dataset.depth ?? 0.1);
+
+                const translateX = cameraX * depth * intensity;
+                const translateY =
+                    cameraY * depth * intensity + scrollY * depth * 0.08;
+
+                const rotateY = cameraX * 0.02 * depth;
+                const rotateX = -cameraY * 0.02 * depth;
+
+                layer.style.transform = `
+                    translate3d(${translateX}px,${translateY}px,0)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    scale(${1.05 + depth * 0.06})
+                `;
+            });
+
+            raf = requestAnimationFrame(animate);
+        }
+
+        isRunning = true;
         animate();
 
-        window.addEventListener("mousemove",onMouse);
+        window.addEventListener("mousemove", onMouse, { passive: true });
+        window.addEventListener("scroll", onScroll, { passive: true });
 
-        window.addEventListener("scroll",onScroll,{passive:true});
-
-        return()=>{
-
+        return () => {
             cancelAnimationFrame(raf);
-
-            window.removeEventListener("mousemove",onMouse);
-
-            window.removeEventListener("scroll",onScroll);
-
+            isRunning = false;
+            observer?.disconnect();
+            window.removeEventListener("mousemove", onMouse);
+            window.removeEventListener("scroll", onScroll);
         };
 
     },[scene]);

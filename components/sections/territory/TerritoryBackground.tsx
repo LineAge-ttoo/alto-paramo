@@ -10,7 +10,8 @@ export default function TerritoryBackground() {
                 src="/coffee/territory.jpg"
                 alt="Territorio Alto Páramo"
                 fill
-                quality={100}
+                quality={88}
+                sizes="100vw"
                 className="
                     object-cover
                     brightness-[1.10]

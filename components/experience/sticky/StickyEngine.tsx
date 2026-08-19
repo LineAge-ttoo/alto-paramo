@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 
@@ -43,13 +43,7 @@ export default function StickyEngine() {
 
         });
 
-        return () => {
-
-            ctx.revert();
-
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
-        };
+        return () => ctx.revert();
 
     }, []);
 

@@ -1,119 +1,71 @@
 "use client";
 
-interface Props {
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useJourneyStore } from "./journeyStore";
+import { steps } from "./data";
 
-    active: number;
+export default function CoffeeBranch() {
+    const active = useJourneyStore((state) => state.active);
+    const [inView, setInView] = useState(false);
 
-    total: number;
+    useEffect(() => {
+        const journeyEl = document.getElementById("journey");
+        if (!journeyEl) return;
 
-}
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setInView(entry.isIntersecting);
+            },
+            { threshold: 0.05 }
+        );
 
-export default function CoffeeBranch({
+        observer.observe(journeyEl);
+        return () => observer.disconnect();
+    }, []);
 
-    active,
-
-    total
-
-}: Props) {
+    const currentStep = steps[active] || steps[0];
+    const total = steps.length;
+    const progressPercent = ((active + 1) / total) * 100;
 
     return (
+        <AnimatePresence>
+            {inView && (
+                <motion.aside
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.4 }}
+                    className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 select-none md:flex flex-col items-end gap-3 pointer-events-none"
+                >
+                    {/* Editorial counter 01 / 09 */}
+                    <div className="flex items-baseline gap-1.5 rounded-full border border-white/10 bg-black/50 px-3.5 py-1.5 backdrop-blur-xl">
+                        <span className="text-xs font-semibold tracking-widest text-[#D7C18A]">
+                            0{active + 1}
+                        </span>
+                        <span className="text-[10px] text-white/40">/</span>
+                        <span className="text-[10px] tracking-widest text-white/50">
+                            0{total}
+                        </span>
+                    </div>
 
-        <aside
+                    {/* Step Title Pill */}
+                    <div className="text-right">
+                        <p className="text-[10px] uppercase tracking-[0.25em] text-white/60">
+                            {currentStep.title}
+                        </p>
+                    </div>
 
-            className="
-                fixed
-                right-8
-                top-1/2
-                z-40
-                hidden
-                -translate-y-1/2
-                xl:flex
-                pointer-events-none
-                select-none
-            "
-
-        >
-
-            <div className="relative flex flex-col items-center">
-
-                {
-
-                    Array.from({
-
-                        length: total
-
-                    }).map((_, index) => (
-
-                        <div
-
-                            key={index}
-
-                            className="flex flex-col items-center"
-
-                        >
-
-                            <div
-
-                                className={`
-
-                                    rounded-full
-
-                                    transition-all
-
-                                    duration-700
-
-                                    ease-out
-
-                                    ${
-
-                                        index === active
-
-                                            ? "h-2.5 w-2.5 bg-[#D7C18A] opacity-100"
-
-                                            : index < active
-
-                                                ? "h-1.5 w-1.5 bg-white/45"
-
-                                                : "h-1 w-1 bg-white/20"
-
-                                    }
-
-                                `}
-
-                            />
-
-                            {
-
-                                index < total - 1 && (
-
-                                    <div
-
-                                        className="
-                                            my-3
-                                            h-10
-                                            w-px
-                                            bg-gradient-to-b
-                                            from-white/18
-                                            via-white/10
-                                            to-transparent
-                                        "
-
-                                    />
-
-                                )
-
-                            }
-
-                        </div>
-
-                    ))
-
-                }
-
-            </div>
-
-        </aside>
-
+                    {/* Minimalist vertical progress line */}
+                    <div className="relative h-28 w-[2px] rounded-full bg-white/15 overflow-hidden">
+                        <motion.div
+                            className="absolute left-0 top-0 w-full bg-[#D7C18A]"
+                            animate={{ height: `${progressPercent}%` }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                        />
+                    </div>
+                </motion.aside>
+            )}
+        </AnimatePresence>
     );
-
 }

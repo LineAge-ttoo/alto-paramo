@@ -1,43 +1,24 @@
 "use client";
 
-import { useState } from "react";
-
 import JourneyViewport from "./JourneyViewport";
 import JourneyEngine from "./JourneyEngine";
 import CoffeeBranch from "./CoffeeBranch";
 
-import { steps } from "./data";
-
 export default function Journey() {
-
-    const [active] = useState(0);
-
     return (
-
         <section
-
             id="journey"
-
             data-scene="journey"
-
             className="relative bg-[#090909]"
-
         >
-
+            {/* ScrollTrigger Engine for step tracking & parallax */}
             <JourneyEngine />
 
-            <CoffeeBranch
+            {/* Floating Editorial Step Indicator */}
+            <CoffeeBranch />
 
-                active={active}
-
-                total={steps.length}
-
-            />
-
+            {/* Main Stage Viewport */}
             <JourneyViewport />
-
         </section>
-
     );
-
 }

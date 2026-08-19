@@ -8,7 +8,7 @@ export default function CoffeeLines() {
 
         <section
 
-            id="coffee"
+            id="cafe"
 
             data-scene="coffee"
 

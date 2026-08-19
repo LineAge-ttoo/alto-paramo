@@ -62,6 +62,8 @@ export default function Hero() {
 
         <section
 
+            id="hero"
+
             data-scene="hero"
 
             ref={hero}
