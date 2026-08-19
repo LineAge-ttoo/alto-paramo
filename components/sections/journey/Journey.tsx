@@ -2,22 +2,18 @@
 
 import JourneyViewport from "./JourneyViewport";
 import JourneyEngine from "./JourneyEngine";
-import CoffeeBranch from "./CoffeeBranch";
 
 export default function Journey() {
     return (
         <section
             id="journey"
             data-scene="journey"
-            className="relative bg-[#090909]"
+            className="relative overflow-hidden bg-[#090908] py-24 sm:py-32 md:py-36"
         >
-            {/* ScrollTrigger Engine for step tracking & parallax */}
+            {/* ScrollTrigger Engine for subtle scene entrance */}
             <JourneyEngine />
 
-            {/* Floating Editorial Step Indicator */}
-            <CoffeeBranch />
-
-            {/* Main Stage Viewport */}
+            {/* Main Interactive Station Viewport */}
             <JourneyViewport />
         </section>
     );
