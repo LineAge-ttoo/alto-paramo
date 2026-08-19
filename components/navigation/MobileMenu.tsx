@@ -12,9 +12,7 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     const handleNavigate = (href: string) => {
         onClose();
-        setTimeout(() => {
-            scrollToSection(href);
-        }, 300);
+        scrollToSection(href);
     };
 
     return (
