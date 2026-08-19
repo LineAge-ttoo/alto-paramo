@@ -17,6 +17,15 @@ export default function JourneyMicroTool({ stepId }: JourneyMicroToolProps) {
     if (stepId === 6) {
         return <DryingBedTool />;
     }
+    if (stepId === 7) {
+        return <RoastHeatTool />;
+    }
+    if (stepId === 8) {
+        return <CuppingDimensionsTool />;
+    }
+    if (stepId === 9) {
+        return <CupProportionTool />;
+    }
     return null;
 }
 
@@ -312,6 +321,255 @@ function DryingBedTool() {
 
             <p className="mt-2 text-center text-[11px] text-white/50">
                 El rastrillado constante previene fermentaciones irregulares
+            </p>
+        </div>
+    );
+}
+
+/**
+ * HERRAMIENTA 07: TUESTE — REVELAR CON EL CALOR
+ */
+function RoastHeatTool() {
+    const [roastProgress, setRoastProgress] = useState<number>(55);
+
+    // Color transition from straw/tan (#C8B08A) to medium caramel roast (#5A311A)
+    const factor = roastProgress / 100;
+    
+    // Subtle RGB interpolation for bean color:
+    // Start: R 200, G 176, B 138 (pajizo/claro)
+    // End:   R 84,  G 48,  B 27  (caramelo medio tostado)
+    const r = Math.round(200 - factor * 116);
+    const g = Math.round(176 - factor * 128);
+    const b = Math.round(138 - factor * 111);
+    const beanColor = `rgb(${r}, ${g}, ${b})`;
+    const creaseColor = `rgb(${Math.max(20, r - 40)}, ${Math.max(10, g - 40)}, ${Math.max(5, b - 30)})`;
+
+    return (
+        <div className="mt-5 border-t border-white/10 pt-4">
+            <div className="flex items-center justify-between">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
+                    Observar la transformación
+                </p>
+                <span className="text-[10px] tracking-wider text-white/40">
+                    Exploración visual
+                </span>
+            </div>
+
+            {/* Beans Row & Heat Curve */}
+            <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-4">
+                {/* Visual illustrated beans array */}
+                <div className="flex items-center justify-around py-2">
+                    {[1, 2, 3, 4, 5, 6].map((beanId) => (
+                        <motion.div
+                            key={beanId}
+                            animate={{
+                                backgroundColor: beanColor,
+                                scale: 1 + factor * 0.08
+                            }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="relative h-4 w-6 rounded-full border border-white/15 shadow-sm"
+                        >
+                            {/* Characteristic center fissure */}
+                            <div
+                                className="absolute inset-y-0.5 left-1/2 w-[1px] -translate-x-1/2 rounded-full transition-colors"
+                                style={{ backgroundColor: creaseColor }}
+                            />
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Thermal curve slider */}
+                <div className="mt-3 flex items-center gap-3">
+                    <span className="text-[10px] uppercase tracking-wider text-white/40">
+                        Verde
+                    </span>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={roastProgress}
+                        onChange={(e) => setRoastProgress(Number(e.target.value))}
+                        aria-label="Exploración visual de la transformación térmica del grano"
+                        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/15 accent-[#D7C18A] focus:outline-none"
+                    />
+                    <span className="text-[10px] uppercase tracking-wider text-[#D7C18A]">
+                        Tostado
+                    </span>
+                </div>
+            </div>
+
+            <p className="mt-2 text-center text-[11px] text-white/50">
+                El calor despierta compuestos aromáticos sin carbonizar el grano
+            </p>
+        </div>
+    );
+}
+
+/**
+ * HERRAMIENTA 08: CATACIÓN — LEER LA TAZA
+ */
+function CuppingDimensionsTool() {
+    const [selectedDim, setSelectedDim] = useState<string>("aroma");
+
+    const dimensions = [
+        {
+            id: "aroma",
+            label: "Aroma",
+            desc: "Fragancia en seco y aroma en infusión que revelan el origen botánico.",
+            bias: { top: 75, right: 35, bottom: 35, left: 35 }
+        },
+        {
+            id: "acidez",
+            label: "Acidez",
+            desc: "Brillo natural málico y cítrico originado por la altitud volcánica.",
+            bias: { top: 35, right: 75, bottom: 35, left: 35 }
+        },
+        {
+            id: "dulzor",
+            label: "Dulzor",
+            desc: "Presencia de azúcares caramelizados durante la maduración lenta.",
+            bias: { top: 35, right: 35, bottom: 75, left: 35 }
+        },
+        {
+            id: "cuerpo",
+            label: "Cuerpo",
+            desc: "Textura táctil y sedosidad en el paladar propia del varietal.",
+            bias: { top: 35, right: 35, bottom: 35, left: 75 }
+        }
+    ];
+
+    const activeDimObj = dimensions.find((d) => d.id === selectedDim) || dimensions[0];
+
+    return (
+        <div className="mt-5 border-t border-white/10 pt-4">
+            <div className="flex items-center justify-between">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
+                    Explorar dimensiones
+                </p>
+                <span className="text-[10px] tracking-wider text-white/40">
+                    Mesa sensorial
+                </span>
+            </div>
+
+            {/* Organic 4-Dimension Radial Observation Widget */}
+            <div className="mt-3 flex flex-col items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-4">
+                {/* 4 Interactive Dimension Buttons */}
+                <div className="grid w-full grid-cols-4 gap-2">
+                    {dimensions.map((dim) => {
+                        const isCurrent = selectedDim === dim.id;
+                        return (
+                            <button
+                                key={dim.id}
+                                type="button"
+                                onClick={() => setSelectedDim(dim.id)}
+                                aria-label={`Explorar dimensión sensorial ${dim.label}`}
+                                className={`
+                                    flex min-h-[44px] flex-col items-center justify-center rounded-xl p-2 text-center transition-all duration-200
+                                    ${
+                                        isCurrent
+                                            ? "border border-[#D7C18A]/60 bg-[#D7C18A]/10 text-white shadow-[0_0_12px_rgba(215,193,138,0.15)]"
+                                            : "border border-white/5 bg-black/20 text-white/50 hover:border-white/20 hover:text-white/80"
+                                    }
+                                `}
+                            >
+                                <span
+                                    className={`text-xs font-semibold uppercase tracking-wider ${
+                                        isCurrent ? "text-[#D7C18A]" : "text-white/60"
+                                    }`}
+                                >
+                                    {dim.label}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {/* Dimension Editorial Detail Note */}
+                <p className="min-h-[32px] text-center text-xs leading-5 text-white/75 sm:text-sm">
+                    {activeDimObj.desc}
+                </p>
+            </div>
+
+            <p className="mt-2 text-center text-[11px] text-white/50">
+                Dimensiones sensoriales observadas en mesa de catación
+            </p>
+        </div>
+    );
+}
+
+/**
+ * HERRAMIENTA 09: LA TAZA — PROPORCIÓN VISUAL
+ */
+function CupProportionTool() {
+    const [ratioValue, setRatioValue] = useState<number>(50); // 50 = equilibrium
+
+    // Check if within balanced zone
+    const isBalanced = ratioValue >= 40 && ratioValue <= 60;
+    // Water level calculation: 30% to 75%
+    const waterLevel = 30 + (ratioValue / 100) * 45;
+
+    return (
+        <div className="mt-5 border-t border-white/10 pt-4">
+            <div className="flex items-center justify-between">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
+                    Relación café y agua
+                </p>
+                <span className="text-[10px] tracking-wider text-white/40">
+                    Proporción visual
+                </span>
+            </div>
+
+            {/* Visual Cup and Balance Representation */}
+            <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-4">
+                <div className="flex items-center justify-center gap-6 py-1">
+                    {/* Stylized Vessel Graphic */}
+                    <div className="relative h-12 w-16 overflow-hidden rounded-b-2xl border-2 border-white/30 bg-black/40">
+                        {/* Liquid fill */}
+                        <motion.div
+                            animate={{ height: `${waterLevel}%` }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#6A4023] to-[#A88252]"
+                        />
+                        {/* Cup handle */}
+                        <div className="absolute -right-2 top-2 h-5 w-2 rounded-r-md border-r-2 border-y-2 border-white/30" />
+                    </div>
+
+                    {/* Balance State Callout */}
+                    <div className="flex flex-col items-start">
+                        <span
+                            className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-widest transition-all ${
+                                isBalanced
+                                    ? "border border-[#D7C18A]/50 bg-[#D7C18A]/15 text-[#D7C18A]"
+                                    : "border border-white/10 bg-white/5 text-white/50"
+                            }`}
+                        >
+                            {isBalanced ? "Equilibrio" : "En ajuste"}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Interactive Proportion Slider */}
+                <div className="mt-3 flex items-center gap-3">
+                    <span className="text-[10px] uppercase tracking-wider text-white/50">
+                        Café
+                    </span>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={ratioValue}
+                        onChange={(e) => setRatioValue(Number(e.target.value))}
+                        aria-label="Ajustar proporción visual entre café y agua"
+                        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/15 accent-[#D7C18A] focus:outline-none"
+                    />
+                    <span className="text-[10px] uppercase tracking-wider text-white/50">
+                        Agua
+                    </span>
+                </div>
+            </div>
+
+            <p className="mt-2 text-center text-[11px] text-white/50">
+                La armonía entre grano y agua permite revelar la expresión limpia del origen
             </p>
         </div>
     );
