@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useJourneyStore } from "./journeyStore";
 import { steps } from "./data";
+import JourneyMicroTool from "./JourneyMicroTool";
 
 type JourneyTab = "story" | "importance" | "discovery";
 
@@ -307,10 +308,10 @@ export default function JourneyViewport() {
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: -6 }}
                                             transition={{ duration: 0.28, ease: "easeOut" }}
-                                            className="space-y-5"
+                                            className="space-y-4"
                                         >
                                             {activeStep.curiosity && (
-                                                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                                                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:p-5">
                                                     <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
                                                         Detalle Territorial
                                                     </p>
@@ -337,6 +338,9 @@ export default function JourneyViewport() {
                                                     </div>
                                                 </div>
                                             )}
+
+                                            {/* Micro-tool for stages 01, 04, and 06 */}
+                                            <JourneyMicroTool stepId={activeStep.id} />
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
