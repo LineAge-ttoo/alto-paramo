@@ -6,10 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useJourneyStore } from "./journeyStore";
 import { steps } from "./data";
 
+type JourneyTab = "story" | "importance" | "discovery";
+
 export default function JourneyViewport() {
     const active = useJourneyStore((state) => state.active);
     const setActive = useJourneyStore((state) => state.setActive);
-    const [expanded, setExpanded] = useState(false);
+    const [currentTab, setCurrentTab] = useState<JourneyTab>("story");
 
     const activeStep = steps[active] || steps[0];
     const total = steps.length;
@@ -17,20 +19,20 @@ export default function JourneyViewport() {
     const handlePrev = () => {
         if (active > 0) {
             setActive(active - 1);
-            setExpanded(false);
+            setCurrentTab("story");
         }
     };
 
     const handleNext = () => {
         if (active < total - 1) {
             setActive(active + 1);
-            setExpanded(false);
+            setCurrentTab("story");
         }
     };
 
     const handleSelectStep = (index: number) => {
         setActive(index);
-        setExpanded(false);
+        setCurrentTab("story");
     };
 
     return (
@@ -58,7 +60,7 @@ export default function JourneyViewport() {
                 </div>
             </div>
 
-            {/* Horizontal Step Selector Strip */}
+            {/* Horizontal Step Selector Strip (01 - 09) */}
             <div className="mt-8 overflow-x-auto pb-4 pt-2">
                 <nav
                     aria-label="Selector de fases del proceso"
@@ -71,6 +73,7 @@ export default function JourneyViewport() {
                                 key={step.id}
                                 type="button"
                                 onClick={() => handleSelectStep(index)}
+                                aria-label={`Fase ${step.number}: ${step.title}`}
                                 className={`
                                     group relative flex min-h-[44px] items-center gap-2.5 rounded-full px-4 py-2 text-xs font-semibold tracking-wider transition-all duration-300
                                     ${
@@ -92,7 +95,7 @@ export default function JourneyViewport() {
                 </nav>
             </div>
 
-            {/* Interactive Station Body Stage */}
+            {/* Interactive Observation Stage */}
             <div className="mt-8 grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
                 {/* Active Photograph Column (55-60% width) */}
                 <div className="lg:col-span-7">
@@ -143,7 +146,7 @@ export default function JourneyViewport() {
                     </div>
                 </div>
 
-                {/* Editorial Content Column (40-45% width) */}
+                {/* Editorial Content Column (40-45% width) with Interactive Observation Tabs */}
                 <div className="lg:col-span-5">
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -154,7 +157,7 @@ export default function JourneyViewport() {
                             transition={{ duration: 0.35, ease: "easeOut" }}
                             className="flex flex-col justify-between space-y-6"
                         >
-                            {/* Meta & Title */}
+                            {/* Meta & Phase Title */}
                             <div>
                                 <div className="flex flex-wrap items-center gap-3">
                                     <span className="text-xs font-semibold tracking-[0.40em] text-[#D7C18A]">
@@ -170,90 +173,180 @@ export default function JourneyViewport() {
                                 <h3 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                                     {activeStep.title}
                                 </h3>
-
-                                <p className="mt-4 text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
-                                    {activeStep.description}
-                                </p>
                             </div>
 
-                            {/* Deep Story Narrative */}
-                            <div className="border-l-2 border-[#D7C18A]/40 pl-4 text-sm leading-7 text-white/75 sm:text-base sm:leading-8">
-                                <p>{activeStep.story}</p>
-                            </div>
-
-                            {/* Reflection Quote */}
-                            <p className="text-sm italic leading-relaxed text-[#D7C18A] sm:text-base">
-                                “{activeStep.reflection}”
-                            </p>
-
-                            {/* Expandable Key Discoveries Accordion */}
-                            <div>
+                            {/* Observation Tabs Navigation */}
+                            <div
+                                role="tablist"
+                                aria-label="Controles de información del proceso"
+                                className="flex items-center gap-6 border-b border-white/10 pb-3"
+                            >
                                 <button
                                     type="button"
-                                    onClick={() => setExpanded(!expanded)}
-                                    className="inline-flex min-h-[44px] items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-md transition-all duration-300 hover:border-[#D7C18A]/50 hover:bg-white/10 hover:text-white"
+                                    role="tab"
+                                    id="journey-tab-story"
+                                    aria-selected={currentTab === "story"}
+                                    aria-controls="journey-tabpanel-story"
+                                    onClick={() => setCurrentTab("story")}
+                                    className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        currentTab === "story"
+                                            ? "text-[#D7C18A]"
+                                            : "text-white/50 hover:text-white/80"
+                                    }`}
                                 >
-                                    <span>{expanded ? "Ocultar detalles" : "Ver por qué importa"}</span>
-                                    <span
-                                        className={`transition-transform duration-300 ${
-                                            expanded ? "rotate-180" : ""
-                                        }`}
-                                    >
-                                        ↓
-                                    </span>
+                                    Historia
+                                    {currentTab === "story" && (
+                                        <motion.div
+                                            layoutId="journeyActiveTabIndicator"
+                                            className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                            transition={{ duration: 0.25, ease: "easeOut" }}
+                                        />
+                                    )}
                                 </button>
 
-                                <AnimatePresence>
-                                    {expanded && (
+                                <button
+                                    type="button"
+                                    role="tab"
+                                    id="journey-tab-importance"
+                                    aria-selected={currentTab === "importance"}
+                                    aria-controls="journey-tabpanel-importance"
+                                    onClick={() => setCurrentTab("importance")}
+                                    className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        currentTab === "importance"
+                                            ? "text-[#D7C18A]"
+                                            : "text-white/50 hover:text-white/80"
+                                    }`}
+                                >
+                                    Por qué importa
+                                    {currentTab === "importance" && (
                                         <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: "auto" }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            transition={{ duration: 0.35, ease: "easeInOut" }}
-                                            className="overflow-hidden"
+                                            layoutId="journeyActiveTabIndicator"
+                                            className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                            transition={{ duration: 0.25, ease: "easeOut" }}
+                                        />
+                                    )}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    role="tab"
+                                    id="journey-tab-discovery"
+                                    aria-selected={currentTab === "discovery"}
+                                    aria-controls="journey-tabpanel-discovery"
+                                    onClick={() => setCurrentTab("discovery")}
+                                    className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        currentTab === "discovery"
+                                            ? "text-[#D7C18A]"
+                                            : "text-white/50 hover:text-white/80"
+                                    }`}
+                                >
+                                    Descubre
+                                    {currentTab === "discovery" && (
+                                        <motion.div
+                                            layoutId="journeyActiveTabIndicator"
+                                            className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                            transition={{ duration: 0.25, ease: "easeOut" }}
+                                        />
+                                    )}
+                                </button>
+                            </div>
+
+                            {/* Active Tab Panel Stage */}
+                            <div className="min-h-[170px] sm:min-h-[190px]">
+                                <AnimatePresence mode="wait">
+                                    {currentTab === "story" && (
+                                        <motion.div
+                                            key={`story-${activeStep.id}`}
+                                            id="journey-tabpanel-story"
+                                            role="tabpanel"
+                                            aria-labelledby="journey-tab-story"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.28, ease: "easeOut" }}
+                                            className="space-y-4"
                                         >
-                                            <div className="mt-4 space-y-4 rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl">
-                                                <div className="space-y-1">
-                                                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
-                                                        ¿Por qué importa?
-                                                    </p>
-                                                    <p className="text-xs sm:text-sm leading-6 text-white/80">
-                                                        {activeStep.importance}
-                                                    </p>
-                                                </div>
+                                            <p className="text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
+                                                {activeStep.description}
+                                            </p>
 
-                                                {activeStep.curiosity && (
-                                                    <div className="space-y-1">
-                                                        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
-                                                            Detalle territorial
-                                                        </p>
-                                                        <p className="text-xs sm:text-sm leading-6 text-white/80">
-                                                            {activeStep.curiosity}
-                                                        </p>
-                                                    </div>
-                                                )}
-
-                                                {activeStep.discoveries && activeStep.discoveries.length > 0 && (
-                                                    <div className="space-y-1 pt-1">
-                                                        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
-                                                            Claves del proceso
-                                                        </p>
-                                                        <div className="flex flex-wrap gap-1.5 pt-1">
-                                                            {activeStep.discoveries.map((disc) => (
-                                                                <span
-                                                                    key={disc}
-                                                                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] text-white/70"
-                                                                >
-                                                                    {disc}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
+                                            <div className="border-l-2 border-[#D7C18A]/40 pl-4 text-sm leading-7 text-white/75 sm:text-base sm:leading-8">
+                                                <p>{activeStep.story}</p>
                                             </div>
                                         </motion.div>
                                     )}
+
+                                    {currentTab === "importance" && (
+                                        <motion.div
+                                            key={`importance-${activeStep.id}`}
+                                            id="journey-tabpanel-importance"
+                                            role="tabpanel"
+                                            aria-labelledby="journey-tab-importance"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.28, ease: "easeOut" }}
+                                            className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6"
+                                        >
+                                            <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
+                                                Criterio de Calidad
+                                            </p>
+                                            <p className="mt-3 text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
+                                                {activeStep.importance}
+                                            </p>
+                                        </motion.div>
+                                    )}
+
+                                    {currentTab === "discovery" && (
+                                        <motion.div
+                                            key={`discovery-${activeStep.id}`}
+                                            id="journey-tabpanel-discovery"
+                                            role="tabpanel"
+                                            aria-labelledby="journey-tab-discovery"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.28, ease: "easeOut" }}
+                                            className="space-y-5"
+                                        >
+                                            {activeStep.curiosity && (
+                                                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                                                    <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
+                                                        Detalle Territorial
+                                                    </p>
+                                                    <p className="mt-2 text-sm sm:text-base leading-7 text-white/80">
+                                                        {activeStep.curiosity}
+                                                    </p>
+                                                </div>
+                                            )}
+
+                                            {activeStep.discoveries && activeStep.discoveries.length > 0 && (
+                                                <div className="pt-1">
+                                                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/50">
+                                                        Claves del Proceso
+                                                    </p>
+                                                    <div className="mt-2.5 flex flex-wrap gap-2">
+                                                        {activeStep.discoveries.map((disc) => (
+                                                            <span
+                                                                key={disc}
+                                                                className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1 text-xs font-medium text-white/75"
+                                                            >
+                                                                {disc}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    )}
                                 </AnimatePresence>
+                            </div>
+
+                            {/* Permanent Editorial Reflection Quote */}
+                            <div className="border-t border-white/10 pt-5">
+                                <p className="text-sm sm:text-base italic leading-relaxed text-[#D7C18A]/90">
+                                    “{activeStep.reflection}”
+                                </p>
                             </div>
                         </motion.div>
                     </AnimatePresence>
@@ -266,6 +359,7 @@ export default function JourneyViewport() {
                     type="button"
                     onClick={handlePrev}
                     disabled={active === 0}
+                    aria-label="Fase anterior"
                     className={`
                         inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider transition-all duration-300
                         ${
@@ -287,6 +381,7 @@ export default function JourneyViewport() {
                     type="button"
                     onClick={handleNext}
                     disabled={active === total - 1}
+                    aria-label="Siguiente fase"
                     className={`
                         inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider transition-all duration-300
                         ${
