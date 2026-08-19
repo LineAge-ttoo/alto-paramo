@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sensoryNotes = [
     {
@@ -78,8 +78,10 @@ export default function SensoryExperience() {
                                 key={note.name}
                                 type="button"
                                 onClick={() => setActiveNote(index)}
+                                aria-pressed={isSelected}
+                                aria-label={`Descriptor sensorial: ${note.name}`}
                                 className={`
-                                    flex min-h-[140px] flex-col justify-between rounded-3xl border p-6 text-left transition-all duration-300 backdrop-blur-md
+                                    flex min-h-[140px] flex-col justify-between rounded-3xl border p-6 text-left transition-all duration-300 backdrop-blur-md focus:outline-none
                                     ${
                                         isSelected
                                             ? "border-[#D7C18A] bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_30px_rgba(215,193,138,0.15)] -translate-y-1"
@@ -113,35 +115,38 @@ export default function SensoryExperience() {
                 </div>
 
                 {/* Sensory note focus display */}
-                <motion.div
-                    key={activeNote}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="mt-8 rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
-                >
-                    <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-                        <div className="max-w-2xl space-y-2">
-                            <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
-                                ORIGEN DEL PERFIL SENSORIAL
-                            </span>
-                            <h4 className="text-2xl font-bold text-white sm:text-3xl">
-                                {sensoryNotes[activeNote].name}
-                            </h4>
-                            <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
-                                {sensoryNotes[activeNote].description}
-                            </p>
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeNote}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="mt-8 rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
+                    >
+                        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                            <div className="max-w-2xl space-y-2">
+                                <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
+                                    ORIGEN DEL PERFIL SENSORIAL
+                                </span>
+                                <h4 className="text-2xl font-bold text-white sm:text-3xl">
+                                    {sensoryNotes[activeNote].name}
+                                </h4>
+                                <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
+                                    {sensoryNotes[activeNote].description}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 md:min-w-[260px] backdrop-blur-md">
+                                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
+                                    Presencia
+                                </p>
+                                <p className="mt-2 text-sm leading-6 text-white/85">
+                                    {sensoryNotes[activeNote].expression}
+                                </p>
+                            </div>
                         </div>
-                        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 md:min-w-[260px] backdrop-blur-md">
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
-                                Presencia
-                            </p>
-                            <p className="mt-2 text-sm leading-6 text-white/85">
-                                {sensoryNotes[activeNote].expression}
-                            </p>
-                        </div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </section>
     );

@@ -73,7 +73,8 @@ export default function DigitalEcosystem() {
                         </div>
 
                         <div className="pt-6 flex flex-wrap items-center gap-4">
-                            <span className="inline-flex items-center gap-3 rounded-full border border-[#D7C18A] bg-[#D7C18A] px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-wide text-stone-900 shadow-[0_4px_25px_rgba(215,193,138,0.25)]">
+                            <span className="inline-flex items-center gap-2.5 rounded-full border border-[#D7C18A]/30 bg-[#D7C18A]/10 px-5 py-2 text-xs font-semibold tracking-wider text-[#D7C18A] backdrop-blur-md">
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#D7C18A] animate-pulse" />
                                 Ecosistema en Construcción
                             </span>
                             <span className="text-xs tracking-wider text-white/50">

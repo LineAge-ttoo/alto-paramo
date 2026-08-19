@@ -93,8 +93,10 @@ export default function Traceability() {
                                     key={item.step}
                                     type="button"
                                     onClick={() => setSelected(index)}
+                                    aria-pressed={isCurrent}
+                                    aria-label={`Etapa ${item.step}: ${item.name}`}
                                     className={`
-                                        flex min-w-[150px] sm:min-w-0 min-h-[48px] flex-col items-start rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300 backdrop-blur-md
+                                        flex min-w-[150px] sm:min-w-0 min-h-[48px] flex-col items-start rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300 backdrop-blur-md focus:outline-none
                                         ${
                                             isCurrent
                                                 ? "border-[#D7C18A] bg-[#D7C18A]/[0.12] shadow-[0_4px_20px_rgba(215,193,138,0.16)]"
@@ -128,7 +130,7 @@ export default function Traceability() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                         className="mt-8 rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
                     >
                         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
