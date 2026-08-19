@@ -26,7 +26,7 @@ export default function DigitalEcosystem() {
         <section
             id="digital"
             data-scene="coffee"
-            className="relative overflow-hidden bg-[#080808] py-32 sm:py-40"
+            className="relative overflow-hidden bg-[#0c0b0a] py-28 sm:py-36 md:py-44"
         >
             {/* Background lighting */}
             <div
@@ -37,41 +37,43 @@ export default function DigitalEcosystem() {
                 }}
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
-                <div className="grid items-center gap-16 lg:grid-cols-12">
+            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+                <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-20">
                     {/* Text content */}
-                    <div className="max-w-2xl lg:col-span-7">
+                    <div className="max-w-2xl lg:col-span-7 space-y-6">
                         <span className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                             ECOSISTEMA DIGITAL
                         </span>
-                        <h2 className="mt-6 text-4xl font-black leading-tight text-white sm:text-6xl md:text-7xl">
+
+                        <h2 className="text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                             El origen continúa
                             <br />
                             en tu día a día.
                         </h2>
-                        <p className="mt-8 text-lg leading-8 text-white/75 sm:text-xl sm:leading-9">
+
+                        <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9 md:text-xl">
                             La plataforma digital de Alto Páramo acompaña a productores, baristas y amantes
                             del café con herramientas de precisión para explorar, cronometrar y registrar cada experiencia.
                         </p>
 
-                        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+                        <div className="pt-6 grid gap-4 sm:grid-cols-2">
                             {appFeatures.map((f, i) => (
                                 <div
                                     key={f.title}
-                                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-5"
+                                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md"
                                 >
-                                    <span className="text-[10px] uppercase tracking-widest text-[#D7C18A]">
+                                    <span className="text-[10px] font-semibold uppercase tracking-widest text-[#D7C18A]">
                                         0{i + 1} · {f.title}
                                     </span>
-                                    <p className="mt-2 text-sm leading-6 text-white/70">
+                                    <p className="mt-2 text-xs sm:text-sm leading-6 text-white/70">
                                         {f.desc}
                                     </p>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="mt-12 flex flex-wrap items-center gap-4">
-                            <span className="inline-flex items-center gap-3 rounded-full border border-[#D7C18A] bg-[#D7C18A] px-8 py-4 text-sm font-semibold tracking-wide text-stone-900 shadow-[0_10px_35px_rgba(215,193,138,0.25)]">
+                        <div className="pt-6 flex flex-wrap items-center gap-4">
+                            <span className="inline-flex items-center gap-3 rounded-full border border-[#D7C18A] bg-[#D7C18A] px-8 py-3.5 text-xs sm:text-sm font-semibold tracking-wide text-stone-900 shadow-[0_4px_25px_rgba(215,193,138,0.25)]">
                                 Ecosistema en Construcción
                             </span>
                             <span className="text-xs tracking-wider text-white/50">
@@ -83,10 +85,10 @@ export default function DigitalEcosystem() {
                     {/* App Mockup Preview Framing */}
                     <div className="lg:col-span-5">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={{ opacity: 0, scale: 0.96 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
                             className="relative mx-auto max-w-sm rounded-[40px] border border-white/15 bg-gradient-to-b from-white/10 to-black/60 p-6 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)]"
                         >
                             {/* Inner screen frame */}

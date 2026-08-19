@@ -48,7 +48,7 @@ export default function Academy() {
         <section
             id="academia"
             data-scene="coffee"
-            className="relative overflow-hidden bg-[#090909] py-32 sm:py-40"
+            className="relative overflow-hidden bg-[#0a0908] py-28 sm:py-36 md:py-44"
         >
             {/* Ambient lighting */}
             <div
@@ -59,27 +59,27 @@ export default function Academy() {
                 }}
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
                 {/* Section Title */}
                 <div className="max-w-3xl">
                     <p className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                         CULTURA DEL CAFÉ
                     </p>
-                    <h2 className="mt-6 text-4xl font-black leading-tight text-white sm:text-6xl md:text-7xl">
+                    <h2 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                         Comprender el café
                         <br />
                         para apreciarlo mejor.
                     </h2>
-                    <p className="mt-8 text-lg leading-8 text-white/75 sm:text-xl sm:leading-9">
+                    <p className="mt-8 text-base leading-8 text-white/80 sm:text-lg sm:leading-9 md:text-xl">
                         Detrás de cada taza hay principios botánicos, decisiones agrícolas y ciencia
                         sensorial. Aprende los fundamentos que hacen único al café del Macizo Colombiano.
                     </p>
                 </div>
 
-                {/* Educational Cards / Interactive Accordion */}
-                <div className="mt-16 grid gap-8 lg:grid-cols-12">
-                    {/* Left Navigation Buttons */}
-                    <div className="flex flex-col gap-3 lg:col-span-4">
+                {/* Educational Display: Specimen list on Left + Deep-Dive on Right */}
+                <div className="mt-16 grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+                    {/* Topic Navigation */}
+                    <div className="flex gap-2.5 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 lg:flex lg:flex-col lg:col-span-4">
                         {lessons.map((item, index) => {
                             const active = index === activeTab;
                             return (
@@ -88,10 +88,10 @@ export default function Academy() {
                                     type="button"
                                     onClick={() => setActiveTab(index)}
                                     className={`
-                                        flex items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300
+                                        flex min-h-[52px] min-w-[200px] sm:min-w-0 items-center justify-between rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300
                                         ${
                                             active
-                                                ? "border-[#D7C18A] bg-[#D7C18A]/10 text-white"
+                                                ? "border-[#D7C18A] bg-[#D7C18A]/10 text-white shadow-[0_4px_20px_rgba(215,193,138,0.12)]"
                                                 : "border-white/10 bg-white/[0.02] text-white/70 hover:border-white/20 hover:bg-white/[0.04] hover:text-white"
                                         }
                                     `}
@@ -104,12 +104,12 @@ export default function Academy() {
                                         >
                                             LECCIÓN 0{index + 1}
                                         </span>
-                                        <p className="mt-1 text-base font-semibold">
+                                        <p className="mt-1 text-sm sm:text-base font-semibold">
                                             {item.topic}
                                         </p>
                                     </div>
                                     <span
-                                        className={`text-lg transition-transform duration-300 ${
+                                        className={`text-base transition-transform duration-300 ${
                                             active ? "text-[#D7C18A] translate-x-1" : "text-white/30"
                                         }`}
                                     >
@@ -120,34 +120,34 @@ export default function Academy() {
                         })}
                     </div>
 
-                    {/* Right Lesson Detail Stage */}
+                    {/* Lesson Detail Stage */}
                     <div className="lg:col-span-8">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab}
-                                initial={{ opacity: 0, y: 15 }}
+                                initial={{ opacity: 0, y: 12 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -15 }}
+                                exit={{ opacity: 0, y: -12 }}
                                 transition={{ duration: 0.35, ease: "easeOut" }}
-                                className="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur-2xl sm:p-12"
+                                className="flex flex-col justify-between rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-8 md:p-10 backdrop-blur-2xl"
                             >
-                                <div>
+                                <div className="space-y-4">
                                     <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
                                         {lessons[activeTab].topic.toUpperCase()}
                                     </span>
-                                    <h3 className="mt-4 text-2xl font-bold leading-snug text-white sm:text-3xl">
+                                    <h3 className="text-2xl font-bold leading-snug text-white sm:text-3xl">
                                         {lessons[activeTab].question}
                                     </h3>
-                                    <p className="mt-6 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
+                                    <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
                                         {lessons[activeTab].answer}
                                     </p>
                                 </div>
 
-                                <div className="mt-10 rounded-2xl border border-[#D7C18A]/20 bg-[#D7C18A]/[0.05] p-5">
-                                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#D7C18A]">
+                                <div className="mt-8 rounded-2xl border border-[#D7C18A]/20 bg-[#D7C18A]/[0.05] p-5 sm:p-6">
+                                    <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                         Idea Clave
                                     </p>
-                                    <p className="mt-2 text-sm font-medium text-white/90">
+                                    <p className="mt-2 text-sm sm:text-base font-medium text-white/90">
                                         {lessons[activeTab].takeaway}
                                     </p>
                                 </div>

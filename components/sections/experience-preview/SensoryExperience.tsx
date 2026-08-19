@@ -42,7 +42,7 @@ export default function SensoryExperience() {
     const [activeNote, setActiveNote] = useState(0);
 
     return (
-        <section className="relative overflow-hidden bg-[#0A0A0A] py-32 sm:py-40">
+        <section className="relative overflow-hidden bg-[#0a0a09] py-28 sm:py-36 md:py-44">
             {/* Ambient subtle glow */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -52,25 +52,25 @@ export default function SensoryExperience() {
                 }}
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
                 {/* Header */}
                 <div className="mx-auto max-w-3xl text-center">
                     <p className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                         DESCRIPTORES NATURALES
                     </p>
-                    <h2 className="mt-6 text-4xl font-black leading-tight text-white sm:text-6xl">
+                    <h2 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
                         Aromas que nacen
                         <br />
                         en el territorio.
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-white/70">
+                    <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/75 sm:text-lg sm:leading-9">
                         El café de especialidad no contiene aditivos ni saborizantes. Cada nota es el
                         resultado directo del suelo volcánico, el agua de montaña y la variedad genética.
                     </p>
                 </div>
 
-                {/* Interactive Notes Grid */}
-                <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {/* Interactive Notes Grid with Accessible Tap Targets */}
+                <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                     {sensoryNotes.map((note, index) => {
                         const isSelected = activeNote === index;
                         return (
@@ -79,30 +79,30 @@ export default function SensoryExperience() {
                                 type="button"
                                 onClick={() => setActiveNote(index)}
                                 className={`
-                                    flex flex-col justify-between rounded-3xl border p-6 text-left transition-all duration-500
+                                    flex min-h-[140px] flex-col justify-between rounded-3xl border p-6 text-left transition-all duration-300
                                     ${
                                         isSelected
-                                            ? "border-[#D7C18A] bg-white/[0.06] shadow-[0_10px_35px_rgba(215,193,138,0.12)] -translate-y-1"
+                                            ? "border-[#D7C18A] bg-white/[0.06] shadow-[0_8px_30px_rgba(215,193,138,0.12)] -translate-y-1"
                                             : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
                                     }
                                 `}
                             >
                                 <div>
                                     <span
-                                        className="inline-block h-3 w-3 rounded-full"
+                                        className="inline-block h-3.5 w-3.5 rounded-full"
                                         style={{ backgroundColor: note.color }}
                                     />
-                                    <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
+                                    <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/50">
                                         {note.category}
                                     </p>
-                                    <h3 className="mt-1 text-xl font-bold text-white">
+                                    <h3 className="mt-1 text-lg sm:text-xl font-bold text-white">
                                         {note.name}
                                     </h3>
                                 </div>
 
                                 <span
-                                    className={`mt-8 text-xs font-semibold tracking-wider ${
-                                        isSelected ? "text-[#D7C18A]" : "text-white/30"
+                                    className={`mt-6 text-xs font-semibold tracking-wider ${
+                                        isSelected ? "text-[#D7C18A]" : "text-white/40"
                                     }`}
                                 >
                                     {isSelected ? "Explorando" : "Seleccionar"}
@@ -115,28 +115,28 @@ export default function SensoryExperience() {
                 {/* Sensory note focus display */}
                 <motion.div
                     key={activeNote}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.35 }}
-                    className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur-xl sm:p-10"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-8 md:p-10 backdrop-blur-xl"
                 >
-                    <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
-                        <div className="max-w-2xl">
+                    <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                        <div className="max-w-2xl space-y-2">
                             <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
                                 ORIGEN DEL PERFIL SENSORIAL
                             </span>
-                            <h4 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                            <h4 className="text-2xl font-bold text-white sm:text-3xl">
                                 {sensoryNotes[activeNote].name}
                             </h4>
-                            <p className="mt-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
+                            <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
                                 {sensoryNotes[activeNote].description}
                             </p>
                         </div>
                         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:min-w-[260px]">
-                            <p className="text-[10px] uppercase tracking-[0.3em] text-[#D7C18A]">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                 Presencia
                             </p>
-                            <p className="mt-2 text-sm text-white/80">
+                            <p className="mt-2 text-sm leading-6 text-white/85">
                                 {sensoryNotes[activeNote].expression}
                             </p>
                         </div>

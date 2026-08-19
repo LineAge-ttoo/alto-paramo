@@ -5,11 +5,11 @@ import { scrollToSection } from "@/lib/scrollTo";
 
 export default function Footer() {
     return (
-        <footer className="relative border-t border-white/10 bg-[#050505] py-20 text-white">
-            <div className="mx-auto max-w-7xl px-6 sm:px-8">
-                <div className="grid gap-12 lg:grid-cols-12">
+        <footer className="relative border-t border-white/10 bg-[#050505] py-20 sm:py-24 text-white">
+            <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
                     {/* Brand & Manifesto */}
-                    <div className="space-y-6 lg:col-span-6">
+                    <div className="space-y-5 lg:col-span-6">
                         <button
                             type="button"
                             onClick={() => scrollToSection("#hero")}
@@ -17,30 +17,30 @@ export default function Footer() {
                         >
                             {site.name}
                         </button>
-                        <p className="max-w-md text-sm leading-7 text-white/70">
+                        <p className="max-w-md text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
                             Café de especialidad cultivado en las alturas de San Agustín, Huila,
                             en la intersección entre el patrimonio arqueológico, la biodiversidad
                             del bosque altoandino y la dedicación de las familias productoras.
                         </p>
-                        <p className="text-xs uppercase tracking-[0.3em] text-[#D7C18A]">
+                        <p className="pt-2 text-xs uppercase tracking-[0.3em] text-[#D7C18A]">
                             {site.tagline}
                         </p>
                     </div>
 
                     {/* Navigation Columns */}
                     <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:col-span-6">
-                        {/* Explorar */}
+                        {/* Plataforma */}
                         <div>
                             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                 Plataforma
                             </p>
-                            <ul className="mt-4 space-y-3">
+                            <ul className="mt-5 space-y-3">
                                 {site.navigation.slice(0, 5).map((item) => (
                                     <li key={item.href}>
                                         <button
                                             type="button"
                                             onClick={() => scrollToSection(item.href)}
-                                            className="text-xs uppercase tracking-[0.2em] text-white/60 transition-colors hover:text-white"
+                                            className="min-h-[32px] text-xs uppercase tracking-[0.2em] text-white/60 transition-colors hover:text-white"
                                         >
                                             {item.label}
                                         </button>
@@ -54,13 +54,13 @@ export default function Footer() {
                             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                 Ecosistema
                             </p>
-                            <ul className="mt-4 space-y-3">
+                            <ul className="mt-5 space-y-3">
                                 {site.navigation.slice(5).map((item) => (
                                     <li key={item.href}>
                                         <button
                                             type="button"
                                             onClick={() => scrollToSection(item.href)}
-                                            className="text-xs uppercase tracking-[0.2em] text-white/60 transition-colors hover:text-white"
+                                            className="min-h-[32px] text-xs uppercase tracking-[0.2em] text-white/60 transition-colors hover:text-white"
                                         >
                                             {item.label}
                                         </button>
@@ -76,7 +76,7 @@ export default function Footer() {
                     <p>
                         © {new Date().getFullYear()} {site.name}. Todos los derechos reservados.
                     </p>
-                    <p className="tracking-widest uppercase text-[10px] text-white/40">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/40">
                         {site.origin.location} · {site.origin.region}
                     </p>
                 </div>

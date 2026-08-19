@@ -25,7 +25,7 @@ export default function Guardians() {
         <section
             id="guardianes"
             data-scene="about"
-            className="relative overflow-hidden bg-[#0A0A0A] py-32 sm:py-40"
+            className="relative overflow-hidden bg-[#0a0a09] py-28 sm:py-36 md:py-44"
         >
             {/* Background warmth */}
             <div
@@ -36,18 +36,18 @@ export default function Guardians() {
                 }}
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
                 {/* Header */}
                 <div className="max-w-3xl">
                     <p className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                         GUARDIANES DEL TERRITORIO
                     </p>
-                    <h2 className="mt-6 text-4xl font-black leading-tight text-white sm:text-6xl md:text-7xl">
+                    <h2 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                         Cuidar el lugar
                         <br />
                         que hace posible el café.
                     </h2>
-                    <p className="mt-8 text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">
+                    <p className="mt-8 text-base leading-8 text-white/80 sm:text-lg sm:leading-9 md:text-xl">
                         Alto Páramo nace en San Agustín, Huila, como una iniciativa viva que integra el
                         patrimonio arqueológico, la biodiversidad del bosque altoandino y la dignidad de
                         las familias productoras.
@@ -55,32 +55,34 @@ export default function Guardians() {
                 </div>
 
                 {/* Pillars Grid */}
-                <div className="mt-16 grid gap-6 md:grid-cols-3">
+                <div className="mt-16 grid gap-6 md:grid-cols-3 md:gap-8">
                     {guardiansPillars.map((pillar, index) => (
                         <motion.div
                             key={pillar.title}
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.12, duration: 0.6 }}
-                            className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl transition-all duration-500 hover:border-[#D7C18A]/40 hover:bg-white/[0.04]"
+                            transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+                            className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[#D7C18A]/30 hover:bg-white/[0.04]"
                         >
-                            <span className="text-xs font-semibold tracking-widest text-[#D7C18A]">
-                                0{index + 1}
-                            </span>
-                            <h3 className="mt-4 text-2xl font-bold text-white">
-                                {pillar.title}
-                            </h3>
-                            <p className="mt-4 text-base leading-7 text-white/70">
-                                {pillar.description}
-                            </p>
+                            <div className="space-y-3">
+                                <span className="text-xs font-semibold tracking-widest text-[#D7C18A]">
+                                    0{index + 1}
+                                </span>
+                                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                                    {pillar.title}
+                                </h3>
+                                <p className="pt-1 text-sm sm:text-base leading-7 text-white/75">
+                                    {pillar.description}
+                                </p>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
 
                 {/* Final Quote Banner */}
-                <div className="mt-20 border-t border-white/10 pt-16 text-center">
-                    <p className="mx-auto max-w-3xl text-2xl italic leading-relaxed text-white/85 sm:text-3xl">
+                <div className="mt-24 border-t border-white/10 pt-16 text-center sm:mt-32 sm:pt-20">
+                    <p className="mx-auto max-w-3xl text-xl italic leading-relaxed text-white/90 sm:text-2xl md:text-3xl">
                         “El café es la consecuencia. La verdadera historia pertenece a quienes cuidan el territorio.”
                     </p>
                     <p className="mt-6 text-xs uppercase tracking-[0.35em] text-[#D7C18A]">
