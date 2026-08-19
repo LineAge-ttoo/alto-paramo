@@ -1,41 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef, useId, useCallback } from "react";
+import { Particles, ParticlesProvider } from "@tsparticles/react";
+import { loadFull } from "tsparticles";
+import type { Engine, Container, ISourceOptions } from "@tsparticles/engine";
 
 interface TerritoryParticlesProps {
     className?: string;
     density?: "low" | "medium";
 }
 
-interface Particle {
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    baseVx: number;
-    baseVy: number;
-    radius: number;
-    color: string;
-    alpha: number;
-    baseAlpha: number;
-    pulseSpeed: number;
-    pulsePhase: number;
-}
-
-const PALETTE = [
-    "215, 193, 138", // Ámbar tenue (#D7C18A)
-    "232, 220, 203", // Marfil cálido (#E8DCCB)
-    "91, 122, 73",   // Verde musgo (#5B7A49)
-    "138, 115, 86",  // Tierra mineral (#8A7356)
-    "196, 154, 58"   // Oro viejo tenue (#C49A3A)
-];
-
 export default function TerritoryParticles({
     className = "",
     density = "medium"
 }: TerritoryParticlesProps) {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const containerRef = useRef<HTMLDivElement | null>(null);
     const [reducedMotion, setReducedMotion] = useState(false);
 
     useEffect(() => {
@@ -46,190 +24,151 @@ export default function TerritoryParticles({
         }
     }, []);
 
+    const initEngine = useCallback(async (engine: Engine) => {
+        await loadFull(engine);
+    }, []);
+
+    if (reducedMotion) {
+        return <div className={`pointer-events-none absolute inset-0 ${className}`} />;
+    }
+
+    return (
+        <ParticlesProvider init={initEngine}>
+            <TerritoryParticlesCanvas className={className} density={density} />
+        </ParticlesProvider>
+    );
+}
+
+function TerritoryParticlesCanvas({
+    className,
+    density
+}: {
+    className: string;
+    density: "low" | "medium";
+}) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const particlesContainer = useRef<Container | null>(null);
+    const [inView, setInView] = useState(true);
+    const id = useId();
+
     useEffect(() => {
-        if (reducedMotion) return;
-        const canvas = canvasRef.current;
-        const container = containerRef.current;
-        if (!canvas || !container) return;
+        if (!containerRef.current) return;
 
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        let animationFrameId: number;
-        let isVisible = true;
-        let lastTime = 0;
-        const fpsInterval = 1000 / 40; // Target ~40 FPS for smooth, efficient rendering
-
-        let width = (canvas.width = container.offsetWidth);
-        let height = (canvas.height = container.offsetHeight);
-
-        const particleCount =
-            density === "low"
-                ? width < 768 ? 10 : 16
-                : width < 768 ? 14 : 24;
-
-        // Initialize particles
-        const particles: Particle[] = Array.from({ length: particleCount }).map(() => {
-            const color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-            const baseAlpha = 0.08 + Math.random() * 0.18; // 0.08 - 0.26
-            const baseVx = (Math.random() - 0.5) * 0.35;
-            const baseVy = -0.15 - Math.random() * 0.25; // Gentle upward/ambient drift
-            return {
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: baseVx,
-                vy: baseVy,
-                baseVx,
-                baseVy,
-                radius: 1.2 + Math.random() * 2.2,
-                color,
-                alpha: baseAlpha,
-                baseAlpha,
-                pulseSpeed: 0.015 + Math.random() * 0.02,
-                pulsePhase: Math.random() * Math.PI * 2
-            };
-        });
-
-        // Mouse & Touch interaction state
-        const pointer = {
-            x: -1000,
-            y: -1000,
-            active: false,
-            radius: 90
-        };
-
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!container) return;
-            const rect = container.getBoundingClientRect();
-            pointer.x = e.clientX - rect.left;
-            pointer.y = e.clientY - rect.top;
-            pointer.active = true;
-        };
-
-        const handleMouseLeave = () => {
-            pointer.active = false;
-            pointer.x = -1000;
-            pointer.y = -1000;
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (!container || e.touches.length === 0) return;
-            const rect = container.getBoundingClientRect();
-            pointer.x = e.touches[0].clientX - rect.left;
-            pointer.y = e.touches[0].clientY - rect.top;
-            pointer.active = true;
-        };
-
-        const handleTouchEnd = () => {
-            pointer.active = false;
-            pointer.x = -1000;
-            pointer.y = -1000;
-        };
-
-        window.addEventListener("mousemove", handleMouseMove, { passive: true });
-        document.addEventListener("mouseleave", handleMouseLeave);
-        window.addEventListener("touchmove", handleTouchMove, { passive: true });
-        window.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-        // Resize observer
-        const resizeObserver = new ResizeObserver(() => {
-            if (!container || !canvas) return;
-            width = canvas.width = container.offsetWidth;
-            height = canvas.height = container.offsetHeight;
-        });
-        resizeObserver.observe(container);
-
-        // Intersection observer for pausing offscreen
-        const intersectionObserver = new IntersectionObserver(
+        const observer = new IntersectionObserver(
             ([entry]) => {
-                isVisible = entry.isIntersecting;
+                const isVisible = entry.isIntersecting;
+                setInView(isVisible);
+                if (particlesContainer.current) {
+                    if (isVisible) {
+                        particlesContainer.current.play();
+                    } else {
+                        particlesContainer.current.pause();
+                    }
+                }
             },
             { threshold: 0.05 }
         );
-        intersectionObserver.observe(container);
 
-        // Render loop
-        const render = (currentTime: number) => {
-            animationFrameId = requestAnimationFrame(render);
+        observer.observe(containerRef.current);
+        return () => observer.disconnect();
+    }, []);
 
-            if (!isVisible) return;
-
-            const elapsed = currentTime - lastTime;
-            if (elapsed < fpsInterval) return;
-            lastTime = currentTime - (elapsed % fpsInterval);
-
-            ctx.clearRect(0, 0, width, height);
-
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-
-                // Breathing opacity pulse
-                p.pulsePhase += p.pulseSpeed;
-                p.alpha = p.baseAlpha + Math.sin(p.pulsePhase) * 0.06;
-                if (p.alpha < 0.04) p.alpha = 0.04;
-
-                // Mouse / Touch repulse interaction
-                if (pointer.active) {
-                    const dx = p.x - pointer.x;
-                    const dy = p.y - pointer.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < pointer.radius && dist > 0) {
-                        const force = (1 - dist / pointer.radius) * 1.8;
-                        const nx = dx / dist;
-                        const ny = dy / dist;
-                        p.vx += nx * force * 0.4;
-                        p.vy += ny * force * 0.4;
-                    }
-                }
-
-                // Drag back towards base velocity (smooth natural return)
-                p.vx += (p.baseVx - p.vx) * 0.04;
-                p.vy += (p.baseVy - p.vy) * 0.04;
-
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Wrap around edges smoothly
-                if (p.x < -10) p.x = width + 10;
-                if (p.x > width + 10) p.x = -10;
-                if (p.y < -10) p.y = height + 10;
-                if (p.y > height + 10) p.y = -10;
-
-                // Draw soft ambient particle
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
-                ctx.fill();
+    const particlesLoaded = async (container?: Container): Promise<void> => {
+        if (container) {
+            particlesContainer.current = container;
+            if (!inView) {
+                container.pause();
             }
-        };
+        }
+    };
 
-        animationFrameId = requestAnimationFrame(render);
+    const count = density === "low" ? 14 : 22;
 
-        return () => {
-            cancelAnimationFrame(animationFrameId);
-            window.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseleave", handleMouseLeave);
-            window.removeEventListener("touchmove", handleTouchMove);
-            window.removeEventListener("touchend", handleTouchEnd);
-            resizeObserver.disconnect();
-            intersectionObserver.disconnect();
-        };
-    }, [density, reducedMotion]);
-
-    if (reducedMotion) {
-        return null;
-    }
+    const options: ISourceOptions = {
+        fpsLimit: 45,
+        fullScreen: { enable: false },
+        detectRetina: true,
+        particles: {
+            number: {
+                value: count,
+                density: {
+                    enable: true,
+                    width: 900,
+                    height: 700
+                }
+            },
+            color: {
+                value: ["#D7C18A", "#E8DCCB", "#5B7A49", "#8A7356", "#C49A3A"]
+            },
+            shape: {
+                type: "circle"
+            },
+            opacity: {
+                value: { min: 0.08, max: 0.28 },
+                animation: {
+                    enable: true,
+                    speed: 0.4,
+                    sync: false
+                }
+            },
+            size: {
+                value: { min: 1.5, max: 3.5 },
+                animation: {
+                    enable: true,
+                    speed: 0.3,
+                    sync: false
+                }
+            },
+            move: {
+                enable: true,
+                speed: 0.4,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: {
+                    default: "out"
+                }
+            }
+        },
+        interactivity: {
+            detectsOn: "window",
+            events: {
+                onHover: {
+                    enable: true,
+                    mode: "repulse"
+                },
+                onClick: {
+                    enable: true,
+                    mode: "push"
+                },
+                resize: {
+                    enable: true
+                }
+            },
+            modes: {
+                repulse: {
+                    distance: 80,
+                    duration: 0.6,
+                    speed: 0.3,
+                    factor: 1.2
+                },
+                push: {
+                    quantity: 2
+                }
+            }
+        }
+    };
 
     return (
         <div
             ref={containerRef}
-            aria-hidden="true"
             className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
         >
-            <canvas
-                ref={canvasRef}
-                className="pointer-events-none block h-full w-full opacity-90"
+            <Particles
+                id={`particles-${id.replace(/:/g, "")}`}
+                className="h-full w-full pointer-events-none"
+                particlesLoaded={particlesLoaded}
+                options={options}
             />
         </div>
     );
