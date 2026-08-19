@@ -14,37 +14,41 @@ export default function JourneyViewport() {
     const setActive = useJourneyStore((state) => state.setActive);
     const [currentTab, setCurrentTab] = useState<JourneyTab>("story");
 
-    const activeStep = steps[active] || steps[0];
     const total = steps.length;
+    // Guard index within valid bounds
+    const safeIndex = Math.max(0, Math.min(active, total - 1));
+    const activeStep = steps[safeIndex] || steps[0];
 
     const handlePrev = () => {
-        if (active > 0) {
-            setActive(active - 1);
+        if (safeIndex > 0) {
+            setActive(safeIndex - 1);
             setCurrentTab("story");
         }
     };
 
     const handleNext = () => {
-        if (active < total - 1) {
-            setActive(active + 1);
+        if (safeIndex < total - 1) {
+            setActive(safeIndex + 1);
             setCurrentTab("story");
         }
     };
 
     const handleSelectStep = (index: number) => {
-        setActive(index);
-        setCurrentTab("story");
+        if (index >= 0 && index < total) {
+            setActive(index);
+            setCurrentTab("story");
+        }
     };
 
     return (
-        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
             {/* Station Header */}
-            <div className="flex flex-col justify-between gap-6 border-b border-white/10 pb-8 sm:flex-row sm:items-end">
+            <div className="flex flex-col justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end">
                 <div>
                     <p className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                         DEL FRUTO A LA TAZA
                     </p>
-                    <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl">
                         Nueve fases del proceso.
                     </h2>
                 </div>
@@ -61,22 +65,23 @@ export default function JourneyViewport() {
                 </div>
             </div>
 
-            {/* Horizontal Step Selector Strip (01 - 09) */}
-            <div className="mt-8 overflow-x-auto pb-4 pt-2">
+            {/* Step Selector Strip (01 - 09) */}
+            <div className="mt-6 overflow-x-auto pb-3 pt-1">
                 <nav
                     aria-label="Selector de fases del proceso"
-                    className="flex min-w-max items-center gap-2 sm:gap-3"
+                    className="flex min-w-max items-center gap-1.5 sm:gap-2.5"
                 >
                     {steps.map((step, index) => {
-                        const isCurrent = index === active;
+                        const isCurrent = index === safeIndex;
                         return (
                             <button
                                 key={step.id}
                                 type="button"
                                 onClick={() => handleSelectStep(index)}
                                 aria-label={`Fase ${step.number}: ${step.title}`}
+                                aria-pressed={isCurrent}
                                 className={`
-                                    group relative flex min-h-[44px] items-center gap-2.5 rounded-full px-4 py-2 text-xs font-semibold tracking-wider transition-all duration-300 backdrop-blur-md
+                                    group relative flex min-h-[44px] items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold tracking-wider transition-all duration-300 backdrop-blur-md
                                     ${
                                         isCurrent
                                             ? "bg-[#D7C18A] text-stone-900 shadow-[0_2px_15px_rgba(215,193,138,0.25)]"
@@ -87,7 +92,11 @@ export default function JourneyViewport() {
                                 <span className={isCurrent ? "font-bold" : "text-white/40 group-hover:text-white/70"}>
                                     {step.number}
                                 </span>
-                                <span className="text-[11px] sm:text-xs">
+                                <span
+                                    className={`text-[11px] sm:text-xs ${
+                                        isCurrent ? "inline" : "hidden sm:inline"
+                                    }`}
+                                >
                                     {step.title}
                                 </span>
                             </button>
@@ -97,17 +106,17 @@ export default function JourneyViewport() {
             </div>
 
             {/* Interactive Observation Stage */}
-            <div className="mt-8 grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
-                {/* Active Photograph Column (55-60% width) */}
+            <div className="mt-6 grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
+                {/* Active Photograph Column (55-57% desktop) */}
                 <div className="lg:col-span-7">
-                    <div className="relative h-[300px] sm:h-[420px] lg:h-[540px] w-full overflow-hidden rounded-3xl border border-white/[0.12] bg-[#121510]/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.35)]">
+                    <div className="relative h-[250px] sm:h-[340px] lg:h-[460px] w-full overflow-hidden rounded-3xl border border-white/[0.12] bg-[#121510]/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.35)]">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeStep.id}
                                 initial={{ opacity: 0, scale: 1.02 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.98 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                transition={{ duration: 0.35, ease: "easeOut" }}
                                 className="relative h-full w-full"
                             >
                                 <Image
@@ -115,7 +124,7 @@ export default function JourneyViewport() {
                                     alt={activeStep.title}
                                     fill
                                     quality={88}
-                                    sizes="(max-width: 1024px) 100vw, 60vw"
+                                    sizes="(max-width: 1024px) 100vw, 58vw"
                                     className="object-cover brightness-[1.06] contrast-[1.03] saturate-[1.06]"
                                     priority
                                 />
@@ -137,8 +146,8 @@ export default function JourneyViewport() {
                                 />
 
                                 {/* Mobile Overlay Title Badge */}
-                                <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between sm:hidden">
-                                    <span className="rounded-full border border-white/20 bg-black/60 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#D7C18A] backdrop-blur-md">
+                                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between sm:hidden">
+                                    <span className="rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#D7C18A] backdrop-blur-md">
                                         Fase {activeStep.number} · {activeStep.title}
                                     </span>
                                 </div>
@@ -147,17 +156,17 @@ export default function JourneyViewport() {
                     </div>
                 </div>
 
-                {/* Editorial Content Column (40-45% width) with Interactive Observation Tabs */}
+                {/* Editorial Content Column (43-45% desktop) */}
                 <div className="lg:col-span-5">
-                    <div className="rounded-3xl border border-white/[0.10] bg-white/[0.035] p-6 sm:p-8 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_50px_rgba(0,0,0,0.25)]">
+                    <div className="rounded-3xl border border-white/[0.10] bg-white/[0.035] p-5 sm:p-7 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_50px_rgba(0,0,0,0.25)]">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeStep.id}
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 8 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.35, ease: "easeOut" }}
-                                className="flex flex-col justify-between space-y-6"
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className="flex flex-col justify-between space-y-5"
                             >
                                 {/* Meta & Phase Title */}
                                 <div>
@@ -172,7 +181,7 @@ export default function JourneyViewport() {
                                         )}
                                     </div>
 
-                                    <h3 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                                    <h3 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                                         {activeStep.title}
                                     </h3>
                                 </div>
@@ -181,7 +190,7 @@ export default function JourneyViewport() {
                                 <div
                                     role="tablist"
                                     aria-label="Controles de información del proceso"
-                                    className="flex items-center gap-6 border-b border-white/10 pb-3"
+                                    className="flex items-center gap-4 sm:gap-6 border-b border-white/10 pb-2.5 overflow-x-auto"
                                 >
                                     <button
                                         type="button"
@@ -190,7 +199,7 @@ export default function JourneyViewport() {
                                         aria-selected={currentTab === "story"}
                                         aria-controls="journey-tabpanel-story"
                                         onClick={() => setCurrentTab("story")}
-                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.20em] sm:tracking-[0.25em] transition-colors whitespace-nowrap ${
                                             currentTab === "story"
                                                 ? "text-[#D7C18A]"
                                                 : "text-white/50 hover:text-white/80"
@@ -200,7 +209,7 @@ export default function JourneyViewport() {
                                         {currentTab === "story" && (
                                             <motion.div
                                                 layoutId="journeyActiveTabIndicator"
-                                                className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                                className="absolute -bottom-2.5 left-0 right-0 h-[2px] bg-[#D7C18A]"
                                                 transition={{ duration: 0.25, ease: "easeOut" }}
                                             />
                                         )}
@@ -213,7 +222,7 @@ export default function JourneyViewport() {
                                         aria-selected={currentTab === "importance"}
                                         aria-controls="journey-tabpanel-importance"
                                         onClick={() => setCurrentTab("importance")}
-                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.20em] sm:tracking-[0.25em] transition-colors whitespace-nowrap ${
                                             currentTab === "importance"
                                                 ? "text-[#D7C18A]"
                                                 : "text-white/50 hover:text-white/80"
@@ -223,7 +232,7 @@ export default function JourneyViewport() {
                                         {currentTab === "importance" && (
                                             <motion.div
                                                 layoutId="journeyActiveTabIndicator"
-                                                className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                                className="absolute -bottom-2.5 left-0 right-0 h-[2px] bg-[#D7C18A]"
                                                 transition={{ duration: 0.25, ease: "easeOut" }}
                                             />
                                         )}
@@ -236,7 +245,7 @@ export default function JourneyViewport() {
                                         aria-selected={currentTab === "discovery"}
                                         aria-controls="journey-tabpanel-discovery"
                                         onClick={() => setCurrentTab("discovery")}
-                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.25em] transition-colors ${
+                                        className={`relative min-h-[38px] pb-1 text-xs font-semibold uppercase tracking-[0.20em] sm:tracking-[0.25em] transition-colors whitespace-nowrap ${
                                             currentTab === "discovery"
                                                 ? "text-[#D7C18A]"
                                                 : "text-white/50 hover:text-white/80"
@@ -246,7 +255,7 @@ export default function JourneyViewport() {
                                         {currentTab === "discovery" && (
                                             <motion.div
                                                 layoutId="journeyActiveTabIndicator"
-                                                className="absolute -bottom-3 left-0 right-0 h-[2px] bg-[#D7C18A]"
+                                                className="absolute -bottom-2.5 left-0 right-0 h-[2px] bg-[#D7C18A]"
                                                 transition={{ duration: 0.25, ease: "easeOut" }}
                                             />
                                         )}
@@ -254,7 +263,7 @@ export default function JourneyViewport() {
                                 </div>
 
                                 {/* Active Tab Panel Stage */}
-                                <div className="min-h-[170px] sm:min-h-[190px]">
+                                <div className="min-h-[160px]">
                                     <AnimatePresence mode="wait">
                                         {currentTab === "story" && (
                                             <motion.div
@@ -265,14 +274,14 @@ export default function JourneyViewport() {
                                                 initial={{ opacity: 0, y: 6 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -6 }}
-                                                transition={{ duration: 0.28, ease: "easeOut" }}
-                                                className="space-y-4"
+                                                transition={{ duration: 0.25, ease: "easeOut" }}
+                                                className="space-y-3.5"
                                             >
-                                                <p className="text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
+                                                <p className="text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
                                                     {activeStep.description}
                                                 </p>
 
-                                                <div className="border-l-2 border-[#D7C18A]/40 pl-4 text-sm leading-7 text-white/75 sm:text-base sm:leading-8">
+                                                <div className="border-l-2 border-[#D7C18A]/40 pl-3.5 text-xs leading-6 text-white/75 sm:text-sm sm:leading-7">
                                                     <p>{activeStep.story}</p>
                                                 </div>
                                             </motion.div>
@@ -287,13 +296,13 @@ export default function JourneyViewport() {
                                                 initial={{ opacity: 0, y: 6 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -6 }}
-                                                transition={{ duration: 0.28, ease: "easeOut" }}
-                                                className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 sm:p-6 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                                                transition={{ duration: 0.25, ease: "easeOut" }}
+                                                className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 sm:p-5 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                                             >
-                                                <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
+                                                <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
                                                     Criterio de Calidad
                                                 </p>
-                                                <p className="mt-3 text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
+                                                <p className="mt-2.5 text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
                                                     {activeStep.importance}
                                                 </p>
                                             </motion.div>
@@ -308,30 +317,30 @@ export default function JourneyViewport() {
                                                 initial={{ opacity: 0, y: 6 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -6 }}
-                                                transition={{ duration: 0.28, ease: "easeOut" }}
-                                                className="space-y-4"
+                                                transition={{ duration: 0.25, ease: "easeOut" }}
+                                                className="space-y-3.5"
                                             >
                                                 {activeStep.curiosity && (
-                                                    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 sm:p-5 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                                                        <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
+                                                    <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3.5 sm:p-4.5 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                                                        <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#D7C18A]">
                                                             Detalle Territorial
                                                         </p>
-                                                        <p className="mt-2 text-sm sm:text-base leading-7 text-white/80">
+                                                        <p className="mt-1.5 text-xs sm:text-sm leading-6 text-white/80">
                                                             {activeStep.curiosity}
                                                         </p>
                                                     </div>
                                                 )}
 
                                                 {activeStep.discoveries && activeStep.discoveries.length > 0 && (
-                                                    <div className="pt-1">
+                                                    <div className="pt-0.5">
                                                         <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/50">
                                                             Claves del Proceso
                                                         </p>
-                                                        <div className="mt-2.5 flex flex-wrap gap-2">
+                                                        <div className="mt-2 flex flex-wrap gap-1.5">
                                                             {activeStep.discoveries.map((disc) => (
                                                                 <span
                                                                     key={disc}
-                                                                    className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-xs font-medium text-white/75"
+                                                                    className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-0.5 text-[11px] font-medium text-white/75"
                                                                 >
                                                                     {disc}
                                                                 </span>
@@ -348,8 +357,8 @@ export default function JourneyViewport() {
                                 </div>
 
                                 {/* Permanent Editorial Reflection Quote */}
-                                <div className="border-t border-white/10 pt-5">
-                                    <p className="text-sm sm:text-base italic leading-relaxed text-[#D7C18A]/90">
+                                <div className="border-t border-white/10 pt-4">
+                                    <p className="text-xs sm:text-sm italic leading-relaxed text-[#D7C18A]/90">
                                         “{activeStep.reflection}”
                                     </p>
                                 </div>
@@ -360,17 +369,17 @@ export default function JourneyViewport() {
             </div>
 
             {/* Bottom Station Navigation Bar */}
-            <div className="mt-12 flex items-center justify-between border-t border-white/10 pt-6">
+            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5">
                 <button
                     type="button"
                     onClick={handlePrev}
-                    disabled={active === 0}
+                    disabled={safeIndex === 0}
                     aria-label="Fase anterior"
                     className={`
                         inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider transition-all duration-300 backdrop-blur-md
                         ${
-                            active === 0
-                                ? "cursor-not-allowed text-white/20"
+                            safeIndex === 0
+                                ? "cursor-not-allowed opacity-30 text-white/40 border border-white/5"
                                 : "border border-white/[0.12] bg-white/[0.04] text-white/80 hover:border-[#D7C18A]/50 hover:bg-white/[0.08] hover:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
                         }
                     `}
@@ -386,13 +395,13 @@ export default function JourneyViewport() {
                 <button
                     type="button"
                     onClick={handleNext}
-                    disabled={active === total - 1}
+                    disabled={safeIndex === total - 1}
                     aria-label="Siguiente fase"
                     className={`
                         inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider transition-all duration-300
                         ${
-                            active === total - 1
-                                ? "cursor-not-allowed text-white/20"
+                            safeIndex === total - 1
+                                ? "cursor-not-allowed opacity-30 text-white/40 border border-white/5 bg-transparent"
                                 : "border border-[#D7C18A] bg-[#D7C18A] text-stone-900 shadow-[0_2px_15px_rgba(215,193,138,0.25)] hover:bg-[#e4d29f]"
                         }
                     `}
