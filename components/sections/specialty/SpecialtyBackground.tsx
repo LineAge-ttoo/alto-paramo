@@ -1,11 +1,8 @@
 import Image from "next/image";
 
 export default function SpecialtyBackground() {
-
     return (
-
         <>
-
             <Image
                 src="/coffee/specialty.jpg"
                 alt="Café de Especialidad"
@@ -23,37 +20,22 @@ export default function SpecialtyBackground() {
             />
 
             {/* Color ambiental del Universo */}
-
             <div
-
                 className="absolute inset-0"
-
                 style={{
-
                     background:
                         "rgba(var(--scene-overlay-color), calc(var(--scene-overlay-opacity) * .40))"
-
                 }}
-
             />
 
-            {/* Gradiente */}
-
+            {/* Gradiente de continuidad */}
             <div
-
                 className="absolute inset-0"
-
                 style={{
-
                     background:
-                        "linear-gradient(to bottom, rgba(0,0,0,.45), transparent 30%, rgba(0,0,0,.60) 100%)"
-
+                        "linear-gradient(to bottom, #0d120d 0%, transparent 20%, transparent 75%, #121410 100%)"
                 }}
-
             />
-
         </>
-
     );
-
 }

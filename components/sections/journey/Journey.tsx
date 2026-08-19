@@ -8,7 +8,7 @@ export default function Journey() {
         <section
             id="journey"
             data-scene="journey"
-            className="relative overflow-hidden bg-gradient-to-b from-[#10140e] via-[#141812] to-[#121510] py-24 sm:py-32 md:py-36"
+            className="relative overflow-hidden bg-gradient-to-b from-[#141712] via-[#161b13] to-[#161c14] py-18 sm:py-22 md:py-26 lg:py-28"
         >
             {/* Ambient atmospheric light pools */}
             <div

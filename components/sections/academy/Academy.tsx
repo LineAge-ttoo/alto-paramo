@@ -48,14 +48,14 @@ export default function Academy() {
         <section
             id="academia"
             data-scene="coffee"
-            className="relative overflow-hidden bg-gradient-to-b from-[#1a1814] via-[#1c1a15] to-[#181612] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#1e231b] via-[#24271f] to-[#22241d] py-18 sm:py-22 md:py-26 lg:py-28"
         >
             {/* Ambient natural library glow pools */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 75% 25%, rgba(215,193,138,0.09), transparent 55%), radial-gradient(circle at 20% 80%, rgba(124,111,88,0.07), transparent 50%)"
+                        "radial-gradient(circle at 75% 25%, rgba(215,193,138,0.13), transparent 55%), radial-gradient(circle at 20% 80%, rgba(145,130,102,0.10), transparent 50%)"
                 }}
             />
 
@@ -65,19 +65,19 @@ export default function Academy() {
                     <p className="text-xs uppercase tracking-[0.45em] text-[#D7C18A]">
                         CULTURA DEL CAFÉ
                     </p>
-                    <h2 className="mt-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                    <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
                         Comprender el café
                         <br />
                         para apreciarlo mejor.
                     </h2>
-                    <p className="mt-8 text-base leading-8 text-white/80 sm:text-lg sm:leading-9 md:text-xl">
+                    <p className="mt-6 text-base leading-7 text-white/80 sm:text-lg sm:leading-8 md:text-xl">
                         Detrás de cada taza hay principios botánicos, decisiones agrícolas y ciencia
                         sensorial. Aprende los fundamentos que hacen único al café del Macizo Colombiano.
                     </p>
                 </div>
 
                 {/* Educational Display: Specimen list on Left + Deep-Dive on Right */}
-                <div className="mt-16 grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+                <div className="mt-12 sm:mt-16 grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
                     {/* Topic Navigation */}
                     <div className="flex gap-2.5 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 lg:flex lg:flex-col lg:col-span-4">
                         {lessons.map((item, index) => {
@@ -90,18 +90,18 @@ export default function Academy() {
                                     aria-pressed={active}
                                     aria-label={`Lección 0${index + 1}: ${item.topic}`}
                                     className={`
-                                        flex min-h-[52px] min-w-[200px] sm:min-w-0 items-center justify-between rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300 backdrop-blur-md focus:outline-none
+                                        flex min-h-[50px] min-w-[190px] sm:min-w-0 items-center justify-between rounded-2xl border p-3.5 sm:p-4.5 text-left transition-all duration-300 backdrop-blur-md focus:outline-none
                                         ${
                                             active
-                                                ? "border-[#D7C18A] bg-[#D7C18A]/[0.12] text-white shadow-[0_4px_20px_rgba(215,193,138,0.16)]"
-                                                : "border-white/[0.09] bg-white/[0.035] text-white/75 hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                                                ? "border-[#D7C18A] bg-[#D7C18A]/[0.15] text-white shadow-[0_4px_20px_rgba(215,193,138,0.20)]"
+                                                : "border-white/[0.10] bg-white/[0.045] text-white/80 hover:border-white/[0.22] hover:bg-white/[0.08] hover:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
                                         }
                                     `}
                                 >
                                     <div>
                                         <span
                                             className={`text-[10px] uppercase tracking-widest ${
-                                                active ? "text-[#D7C18A]" : "text-white/40"
+                                                active ? "text-[#D7C18A]" : "text-white/45"
                                             }`}
                                         >
                                             LECCIÓN 0{index + 1}
@@ -112,7 +112,7 @@ export default function Academy() {
                                     </div>
                                     <span
                                         className={`text-base transition-transform duration-300 ${
-                                            active ? "text-[#D7C18A] translate-x-1" : "text-white/30"
+                                            active ? "text-[#D7C18A] translate-x-1" : "text-white/35"
                                         }`}
                                     >
                                         →
@@ -127,29 +127,29 @@ export default function Academy() {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab}
-                                initial={{ opacity: 0, y: 12 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -12 }}
+                                exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3, ease: "easeOut" }}
-                                className="flex flex-col justify-between rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
+                                className="flex flex-col justify-between rounded-3xl border border-white/[0.14] bg-white/[0.05] p-5 sm:p-7 md:p-9 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.25)]"
                             >
-                                <div className="space-y-4">
+                                <div className="space-y-3.5">
                                     <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
                                         {lessons[activeTab].topic.toUpperCase()}
                                     </span>
-                                    <h3 className="text-2xl font-bold leading-snug text-white sm:text-3xl">
+                                    <h3 className="text-xl font-bold leading-snug text-white sm:text-2xl md:text-3xl">
                                         {lessons[activeTab].question}
                                     </h3>
-                                    <p className="pt-2 text-base leading-8 text-white/80 sm:text-lg sm:leading-9">
+                                    <p className="pt-1 text-base leading-7 text-white/85 sm:text-lg sm:leading-8">
                                         {lessons[activeTab].answer}
                                     </p>
                                 </div>
 
-                                <div className="mt-8 rounded-2xl border border-[#D7C18A]/25 bg-[#D7C18A]/[0.06] p-5 sm:p-6 backdrop-blur-md">
+                                <div className="mt-6 sm:mt-8 rounded-2xl border border-[#D7C18A]/30 bg-[#D7C18A]/[0.08] p-4.5 sm:p-5.5 backdrop-blur-md">
                                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                         Idea Clave
                                     </p>
-                                    <p className="mt-2 text-sm sm:text-base font-medium text-white/90">
+                                    <p className="mt-1.5 text-sm sm:text-base font-medium text-white/90">
                                         {lessons[activeTab].takeaway}
                                     </p>
                                 </div>

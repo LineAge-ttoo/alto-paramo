@@ -1,11 +1,8 @@
 import Image from "next/image";
 
 export default function TerritoryBackground() {
-
     return (
-
         <>
-
             <Image
                 src="/coffee/territory.jpg"
                 alt="Territorio Alto Páramo"
@@ -23,37 +20,22 @@ export default function TerritoryBackground() {
             />
 
             {/* Color ambiental del Universo */}
-
             <div
-
                 className="absolute inset-0"
-
                 style={{
-
                     background:
                         "rgba(var(--scene-overlay-color), calc(var(--scene-overlay-opacity) * .45))"
-
                 }}
-
             />
 
-            {/* Gradiente */}
-
+            {/* Gradiente de continuidad */}
             <div
-
                 className="absolute inset-0"
-
                 style={{
-
                     background:
-                        "linear-gradient(to bottom, rgba(0,0,0,.55), transparent 35%, rgba(0,0,0,.45) 100%)"
-
+                        "linear-gradient(to bottom, #0f140e 0%, transparent 22%, transparent 75%, #0d120d 100%)"
                 }}
-
             />
-
         </>
-
     );
-
 }
