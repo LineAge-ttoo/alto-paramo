@@ -48,14 +48,14 @@ export default function Academy() {
         <section
             id="academia"
             data-scene="coffee"
-            className="relative overflow-hidden bg-[#0a0908] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#1a1814] via-[#1c1a15] to-[#181612] py-28 sm:py-36 md:py-44"
         >
-            {/* Ambient lighting */}
+            {/* Ambient natural library glow pools */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 75% 30%, rgba(215,193,138,0.06), transparent 60%)"
+                        "radial-gradient(circle at 75% 25%, rgba(215,193,138,0.09), transparent 55%), radial-gradient(circle at 20% 80%, rgba(124,111,88,0.07), transparent 50%)"
                 }}
             />
 
@@ -88,11 +88,11 @@ export default function Academy() {
                                     type="button"
                                     onClick={() => setActiveTab(index)}
                                     className={`
-                                        flex min-h-[52px] min-w-[200px] sm:min-w-0 items-center justify-between rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300
+                                        flex min-h-[52px] min-w-[200px] sm:min-w-0 items-center justify-between rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300 backdrop-blur-md
                                         ${
                                             active
-                                                ? "border-[#D7C18A] bg-[#D7C18A]/10 text-white shadow-[0_4px_20px_rgba(215,193,138,0.12)]"
-                                                : "border-white/10 bg-white/[0.02] text-white/70 hover:border-white/20 hover:bg-white/[0.04] hover:text-white"
+                                                ? "border-[#D7C18A] bg-[#D7C18A]/[0.12] text-white shadow-[0_4px_20px_rgba(215,193,138,0.16)]"
+                                                : "border-white/[0.09] bg-white/[0.035] text-white/75 hover:border-white/[0.2] hover:bg-white/[0.06] hover:text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                                         }
                                     `}
                                 >
@@ -129,7 +129,7 @@ export default function Academy() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -12 }}
                                 transition={{ duration: 0.35, ease: "easeOut" }}
-                                className="flex flex-col justify-between rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-8 md:p-10 backdrop-blur-2xl"
+                                className="flex flex-col justify-between rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
                             >
                                 <div className="space-y-4">
                                     <span className="text-xs font-semibold tracking-[0.35em] text-[#D7C18A]">
@@ -143,7 +143,7 @@ export default function Academy() {
                                     </p>
                                 </div>
 
-                                <div className="mt-8 rounded-2xl border border-[#D7C18A]/20 bg-[#D7C18A]/[0.05] p-5 sm:p-6">
+                                <div className="mt-8 rounded-2xl border border-[#D7C18A]/25 bg-[#D7C18A]/[0.06] p-5 sm:p-6 backdrop-blur-md">
                                     <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                         Idea Clave
                                     </p>

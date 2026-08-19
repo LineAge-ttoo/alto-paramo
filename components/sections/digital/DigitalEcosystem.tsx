@@ -26,14 +26,14 @@ export default function DigitalEcosystem() {
         <section
             id="digital"
             data-scene="coffee"
-            className="relative overflow-hidden bg-[#0c0b0a] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#161615] via-[#181817] to-[#181614] py-28 sm:py-36 md:py-44"
         >
-            {/* Background lighting */}
+            {/* Background contemporary warm lighting pools with focused glow behind mockup */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 50% 30%, rgba(215,193,138,0.07), transparent 60%)"
+                        "radial-gradient(circle at 75% 50%, rgba(215,193,138,0.11), transparent 55%), radial-gradient(circle at 25% 40%, rgba(255,255,255,0.03), transparent 60%)"
                 }}
             />
 
@@ -60,7 +60,7 @@ export default function DigitalEcosystem() {
                             {appFeatures.map((f, i) => (
                                 <div
                                     key={f.title}
-                                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md"
+                                    className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                                 >
                                     <span className="text-[10px] font-semibold uppercase tracking-widest text-[#D7C18A]">
                                         0{i + 1} · {f.title}
@@ -89,10 +89,10 @@ export default function DigitalEcosystem() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="relative mx-auto max-w-sm rounded-[40px] border border-white/15 bg-gradient-to-b from-white/10 to-black/60 p-6 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.6)]"
+                            className="relative mx-auto max-w-sm rounded-[40px] border border-white/[0.16] bg-gradient-to-b from-white/[0.12] to-black/50 p-6 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_25px_60px_rgba(0,0,0,0.5)]"
                         >
                             {/* Inner screen frame */}
-                            <div className="space-y-5 rounded-[28px] border border-white/10 bg-[#101010] p-6">
+                            <div className="space-y-5 rounded-[28px] border border-white/[0.10] bg-[#141312] p-6">
                                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                     <span className="text-xs font-bold tracking-widest text-white">
                                         ALTO PÁRAMO

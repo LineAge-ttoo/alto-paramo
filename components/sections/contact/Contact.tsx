@@ -7,14 +7,14 @@ export default function Contact() {
         <section
             id="contacto"
             data-scene="about"
-            className="relative overflow-hidden bg-[#070707] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#181614] via-[#161412] to-[#121110] py-28 sm:py-36 md:py-44"
         >
-            {/* Background radial glow */}
+            {/* Broad centered warm ambient light pool */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 50% 100%, rgba(215,193,138,0.08), transparent 65%)"
+                        "radial-gradient(circle at 50% 50%, rgba(215,193,138,0.12), transparent 65%)"
                 }}
             />
 
@@ -51,6 +51,7 @@ export default function Contact() {
                             transition-all
                             duration-300
                             hover:-translate-y-1
+                            hover:bg-[#e2ce9d]
                             hover:shadow-[0_8px_30px_rgba(215,193,138,0.3)]
                         "
                     >

@@ -25,13 +25,13 @@ const packagingElements = [
 
 export default function Collection() {
     return (
-        <section className="relative overflow-hidden bg-[#0c0b0a] py-28 sm:py-36 md:py-44">
-            {/* Subtle background ambient light */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#1c1814] via-[#1f1a16] to-[#181a14] py-28 sm:py-36 md:py-44">
+            {/* Subtle background warm material ambient light pools */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 30% 70%, rgba(215,193,138,0.05), transparent 60%)"
+                        "radial-gradient(circle at 35% 40%, rgba(215,193,138,0.09), transparent 60%), radial-gradient(circle at 70% 80%, rgba(180,105,61,0.06), transparent 55%)"
                 }}
             />
 
@@ -61,11 +61,11 @@ export default function Collection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
-                            className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[#D7C18A]/40 hover:bg-white/[0.04]"
+                            className="flex flex-col justify-between rounded-3xl border border-white/[0.10] bg-white/[0.035] p-6 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[#D7C18A]/40 hover:bg-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_45px_rgba(0,0,0,0.22)]"
                         >
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1 text-[11px] font-medium uppercase tracking-widest text-[#D7C18A]">
+                                    <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1 text-[11px] font-medium uppercase tracking-widest text-[#D7C18A] backdrop-blur-md">
                                         {item.specs}
                                     </span>
                                     <span className="text-[10px] font-semibold uppercase tracking-widest text-white/40">

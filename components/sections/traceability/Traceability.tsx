@@ -55,14 +55,14 @@ export default function Traceability() {
         <section
             id="trazabilidad"
             data-scene="territory"
-            className="relative overflow-hidden bg-[#0c0b0a] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#121510] via-[#161613] to-[#1a1814] py-28 sm:py-36 md:py-44"
         >
-            {/* Background subtle light */}
+            {/* Background mineral & warm document light pools */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 30% 20%, rgba(215,193,138,0.06), transparent 60%)"
+                        "radial-gradient(circle at 25% 30%, rgba(215,193,138,0.09), transparent 60%), radial-gradient(circle at 80% 70%, rgba(180,131,86,0.06), transparent 50%)"
                 }}
             />
 
@@ -94,11 +94,11 @@ export default function Traceability() {
                                     type="button"
                                     onClick={() => setSelected(index)}
                                     className={`
-                                        flex min-w-[150px] sm:min-w-0 min-h-[48px] flex-col items-start rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300
+                                        flex min-w-[150px] sm:min-w-0 min-h-[48px] flex-col items-start rounded-2xl border p-4 sm:p-5 text-left transition-all duration-300 backdrop-blur-md
                                         ${
                                             isCurrent
-                                                ? "border-[#D7C18A] bg-[#D7C18A]/10 shadow-[0_4px_20px_rgba(215,193,138,0.12)]"
-                                                : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+                                                ? "border-[#D7C18A] bg-[#D7C18A]/[0.12] shadow-[0_4px_20px_rgba(215,193,138,0.16)]"
+                                                : "border-white/[0.09] bg-white/[0.035] hover:border-white/[0.2] hover:bg-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                                         }
                                     `}
                                 >
@@ -129,7 +129,7 @@ export default function Traceability() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-6 sm:p-8 md:p-10 backdrop-blur-xl"
+                        className="mt-8 rounded-3xl border border-white/[0.12] bg-white/[0.04] p-6 sm:p-8 md:p-10 backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_20px_50px_rgba(0,0,0,0.3)]"
                     >
                         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
                             <div className="max-w-2xl space-y-3">
@@ -143,7 +143,7 @@ export default function Traceability() {
                                     {milestones[selected].description}
                                 </p>
                             </div>
-                            <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:min-w-[260px]">
+                            <div className="flex flex-col gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 md:min-w-[260px] backdrop-blur-md">
                                 <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D7C18A]">
                                     Garantía de Origen
                                 </p>

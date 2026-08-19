@@ -25,14 +25,14 @@ export default function Guardians() {
         <section
             id="guardianes"
             data-scene="about"
-            className="relative overflow-hidden bg-[#0a0a09] py-28 sm:py-36 md:py-44"
+            className="relative overflow-hidden bg-gradient-to-b from-[#181a14] via-[#141a12] to-[#161615] py-28 sm:py-36 md:py-44"
         >
-            {/* Background warmth */}
+            {/* Background botanical deep forest & mountain mist light pools */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 60% 40%, rgba(215,193,138,0.06), transparent 60%)"
+                        "radial-gradient(circle at 65% 35%, rgba(91,122,73,0.09), transparent 60%), radial-gradient(circle at 25% 65%, rgba(215,193,138,0.07), transparent 55%)"
                 }}
             />
 
@@ -63,7 +63,7 @@ export default function Guardians() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
-                            className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[#D7C18A]/30 hover:bg-white/[0.04]"
+                            className="flex flex-col justify-between rounded-3xl border border-white/[0.08] bg-white/[0.03] p-6 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[#D7C18A]/35 hover:bg-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_16px_40px_rgba(0,0,0,0.25)]"
                         >
                             <div className="space-y-3">
                                 <span className="text-xs font-semibold tracking-widest text-[#D7C18A]">
