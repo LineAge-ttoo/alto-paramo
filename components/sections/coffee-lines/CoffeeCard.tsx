@@ -52,30 +52,22 @@ export default function CoffeeCard({
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-colors hover:border-[#D7C18A]/40"
         >
-            {/* Image Stage */}
-            <div className="relative h-[320px] sm:h-[380px] md:h-[420px] overflow-hidden">
+            {/* Canonical Product Artwork Stage */}
+            <div className="relative h-[320px] sm:h-[380px] md:h-[420px] overflow-hidden bg-[#0c0e0b]/80 p-4 sm:p-6 flex items-center justify-center">
                 <Image
                     src={image}
-                    alt={title}
+                    alt={`${title} — ${subtitle}`}
                     fill
-                    quality={88}
+                    quality={92}
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover scale-[1.03] brightness-[1.06] contrast-[1.03] saturate-[1.06] transition-transform duration-[4000ms] group-hover:scale-[1.08]"
+                    className="object-contain p-2 sm:p-4 transition-transform duration-700 group-hover:scale-[1.03]"
                 />
 
                 <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
                         background:
-                            "radial-gradient(circle at 72% 18%, rgba(223,184,108,.16), transparent 45%)"
-                    }}
-                />
-
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        background:
-                            "linear-gradient(to top, rgba(9,9,9,0.95) 0%, rgba(9,9,9,0.2) 60%, transparent 100%)"
+                            "radial-gradient(circle at 50% 50%, rgba(215,193,138,0.06), transparent 70%)"
                     }}
                 />
             </div>

@@ -32,14 +32,14 @@ export default function CoffeeLines() {
                     <CoffeeCard
                         title="Especial"
                         subtitle="SPECIALTY COFFEE"
-                        image="/coffee/specialty-line.jpg"
+                        image="/coffee/products/borbon-rosado.png"
                         description="Microlotes de producción limitada, perfiles sensoriales complejos y una trazabilidad completa desde la finca hasta la taza."
                     />
 
                     <CoffeeCard
                         title="Regional"
                         subtitle="ORIGEN"
-                        image="/coffee/regional-line.jpg"
+                        image="/coffee/products/regional.png"
                         description="Un café pensado para compartir todos los días, manteniendo la identidad del Macizo Colombiano en una taza cercana y honesta."
                     />
                 </div>
