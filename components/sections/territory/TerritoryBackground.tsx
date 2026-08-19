@@ -1,9 +1,11 @@
 import Image from "next/image";
-import TerritoryParticles from "@/components/effects/ambient/TerritoryParticles";
 
 export default function TerritoryBackground() {
+
     return (
+
         <>
+
             <Image
                 src="/coffee/territory.jpg"
                 alt="Territorio Alto Páramo"
@@ -21,25 +23,37 @@ export default function TerritoryBackground() {
             />
 
             {/* Color ambiental del Universo */}
+
             <div
+
                 className="absolute inset-0"
+
                 style={{
+
                     background:
                         "rgba(var(--scene-overlay-color), calc(var(--scene-overlay-opacity) * .45))"
+
                 }}
+
             />
 
             {/* Gradiente */}
+
             <div
+
                 className="absolute inset-0"
+
                 style={{
+
                     background:
                         "linear-gradient(to bottom, rgba(0,0,0,.55), transparent 35%, rgba(0,0,0,.45) 100%)"
+
                 }}
+
             />
 
-            {/* Living ambient particles */}
-            <TerritoryParticles density="low" />
         </>
+
     );
+
 }

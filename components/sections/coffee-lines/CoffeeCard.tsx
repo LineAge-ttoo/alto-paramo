@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { scrollToSection } from "@/lib/scrollTo";
 
 interface CoffeeCardProps {
     title: string;
@@ -34,10 +33,6 @@ export default function CoffeeCard({
             notes: "Chocolate · Panela · Caramelo",
             ideal: "Greca · Prensa · Goteo"
         };
-
-    const handleDiscover = () => {
-        scrollToSection(specialty ? "#journey" : "#trazabilidad");
-    };
 
     return (
         <motion.article
@@ -112,7 +107,6 @@ export default function CoffeeCard({
                 <div className="pt-2">
                     <button
                         type="button"
-                        onClick={handleDiscover}
                         className="group/btn inline-flex items-center gap-3 rounded-full border border-[#D7C18A] px-7 py-3 text-xs sm:text-sm font-semibold tracking-wider text-[#D7C18A] transition-all duration-300 hover:bg-[#D7C18A] hover:text-stone-900"
                     >
                         <span>Descubrir esta línea</span>
